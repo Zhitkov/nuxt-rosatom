@@ -1,7 +1,13 @@
 // import { createPersistedState, createSharedMutations } from "vuex-electron"
+import createCache from 'vuex-cache';
+
+export const plugins = [
+    createCache()
+]
 
 export const state = () => ({
     infoStatus: '',
+    pageType: '',
     modal: false,
     playerOptions: {
         // videojs options
@@ -22,22 +28,22 @@ export const state = () => ({
         {
             logo: require('~/assets/icons/control/rosatomNewsIcon.svg'),
             title: 'Новости Росатом',
-            info: { module: 'news', type: 'RosatomNews' }
+            info: { module: 'news', type: 'rosatomNews' }
         },
         {
             logo: require('~/assets/icons/control/missionIcon.svg'),
             title: 'Миссия Стратегия Ценности',
-            info: { module: 'pages', type: 'Mission' }
+            info: { module: 'pages', type: 'mission' }
         },
         {
             logo: require('~/assets/icons/control/newsIcon.svg'),
             title: 'Новости',
-            info: { module: 'news', type: 'News' }
+            info: { module: 'news', type: 'news' }
         },
         {
             logo: require('~/assets/icons/control/carrierIcon.svg'),
             title: 'Карьера',
-            info: { module: 'pages', type: 'Career' }
+            info: { module: 'pages', type: 'career' }
         },
         {
             logo: require('~/assets/icons/control/weatherIcon.svg'),
@@ -47,7 +53,7 @@ export const state = () => ({
         {
             logo: require('~/assets/icons/control/vkIcon.svg'),
             title: 'Вконтакте',
-            info: { module: 'news', type: 'VkNews' }
+            info: { module: 'news', type: 'vkNews' }
         }
     ]
 })
@@ -67,9 +73,6 @@ export const getters = {
     },
     playerOptions(state) {
         return state.playerOptions
-    },
-    pages(state) {
-        return state.pages
     }
 }
 
@@ -78,19 +81,29 @@ export const mutations = {
         state.playerOptions.muted = !state.playerOptions.muted 
     },
     SWITCH_MODAL(state) {
-        console.log(state);
         state.modal = !state.modal 
     },
+    SWITCH_INFO(state, module) {
+        state.infoStatus = module;
+    }
 
 }
 
-export const action = {
-    SwitchInfo({ dispatch, state }, { module, type }) {
-        console.log(state);
-        state.infoStatus = module;
+export const actions = {
+    // switchInfo({ commit, dispatch }, { module, type }) {
+    //     commit('SWITCH_INFO', module)    
+    //     if (type) {
+    //         dispatch('pages/add'+type[0].toUpperCase()+type.slice(1), type)
+    //     }
+    //     commit('SWITCH_MODAL')
+    // }
+    switchInfo({ commit, dispatch }, { module, type }) {
+        commit('SWITCH_INFO', module)    
         if (type) {
-            dispatch('add'+type, type)
+            commit('pages/CHANGE_PAGE_TYPE', type);
+            dispatch('pages/addPageContent')
         }
+        commit('SWITCH_MODAL')
     }
 }
 

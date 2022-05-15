@@ -10,9 +10,12 @@ module.exports = {
   target: 'static',
   head: {
     title: 'nuxt-rosatom',
-    meta: [{ charset: "utf-8" }]
+    meta: [{ charset: "utf-8" }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }]
   },
   loading: false,
+  style: `body {
+  margin: 0 !important;
+}`,
   plugins: [
     
     
@@ -23,7 +26,7 @@ module.exports = {
       '~/components'
     ]
   },
-  plugins: [{ src: '~plugins/vuex-shared-mutations.js', ssr: false }],
+  plugins: [{ src: '~plugins/vuex-shared-mutations.js', ssr: false }, { src: '~/plugins/vuex-cache.js', ssr: false }],
   axios: {
     // proxy: true
   },

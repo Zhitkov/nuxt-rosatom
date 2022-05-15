@@ -7,7 +7,7 @@
           alt=""
         >
       </div>
-      <ControlModalElements @switchVolume="switchVolume" :volume="volume" :infoStatus="infoStatus" ></ControlModalElements>
+      <ControlModalElements :currentPageNews="currentPageNews" @scrollUp="scrollUp()" @scrollDown="scrollDown()" @switchVolume="switchVolume" :volume="volume" :infoStatus="infoStatus" ></ControlModalElements>
     </div>
   </transition>
 </template>
@@ -16,7 +16,8 @@
 export default {
   props: {
     infoStatus: String,
-    volume: Boolean
+    volume: Boolean,
+    currentPageNews: Array
   },
   data: () => ({
     volumeOn: true
@@ -27,6 +28,12 @@ export default {
     },
     switchVolume() {
       this.$emit('switchVolume')
+    },
+    scrollUp() {
+      this.$emit('scrollUp')
+    },
+    scrollDown() {
+      this.$emit('scrollDown')
     }
   }
 

@@ -1,12 +1,10 @@
 <template>
   <div class="container">
-    <div class="list" v-if="infoStatus === 'news'">
-      <div class="item">asdasdasd</div>
-      <div class="item">asdasdasd</div>
-      <div class="item">asdasdasd</div>
-      <div class="item">asdasdasd</div>
-      <div class="item">asdasdasd</div>
-      <div class="item">asdasdasd</div>
+    <!-- <div class="list" v-if="infoStatus === 'news'"> -->
+    <div class="list" v-if="currentPageNews">
+      <div v-for="news in currentPageNews" :key="news.postfix" @click="showNews(news.link, news.postfix, selector)" class="item">
+        <div v-html="news.data"></div>
+      </div>
     </div>
     <div class="elements">
       <div v-show="infoStatus !== 'weather'">
@@ -27,11 +25,11 @@
           >
         </div>
         <div class="arrows">
-          <img
+          <img @click="scrollUp()"
             :src="require('~/assets/icons/arrows/left.svg')"
             alt=""
           >
-          <img
+          <img @click="scrollDown()"
             :src="require('~/assets/icons/arrows/right.svg')"
             alt=""
           >
@@ -54,11 +52,18 @@
 export default {
   props: {
     infoStatus: String,
-    volume: Boolean
+    volume: Boolean,
+    currentPageNews: Array
   },
   methods: {
     switchVolume() {
       this.$emit('switchVolume')
+    },
+    scrollUp() {
+      this.$emit('scrollUp')
+    },
+    scrollDown() {
+      this.$emit('scrollDown')
     }
   }
 

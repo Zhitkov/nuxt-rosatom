@@ -5,7 +5,10 @@
       @closeModal="SWITCH_MODAL()"
       :infoStatus="infoStatus"
       :volume="volume"
+      :currentPageNews="currentPageNews"
       @switchVolume="SWITCH_VOLUME()"
+      @scrollUp="SCROLL_UP()" 
+      @scrollDown="SCROLL_DOWN()" 
     ></ControlModalSwitch>
     <ControlNavbar :logo="require(`~/assets/icons/rosatom.svg`)"></ControlNavbar>
     <div class="control-items">
@@ -13,7 +16,7 @@
         class="control-item"
         v-for="item in controlItems"
         :key="item.title"
-        @click="SWITCH_INFO(item.info)"
+        @click="switchInfo(item.info)"
       >
         <ControlMenuItem
           :logo="item.logo"
@@ -33,11 +36,11 @@ export default {
 
   // }),
   computed: {
-    ...mapGetters(['controlItems', 'infoStatus', 'volume', 'modal'])
+    ...mapGetters({controlItems: 'controlItems', infoStatus: 'infoStatus', volume: 'volume', modal: 'modal', currentPageNews: 'pages/currentPageNews'})
   },
   methods: {
-    // ...mapActions(['SwitchInfo']),
-    ...mapMutations(['SWITCH_INFO','SWITCH_VOLUME', 'SWITCH_MODAL']),
+    ...mapActions(['switchInfo']),
+    ...mapMutations({SWITCH_VOLUME:'SWITCH_VOLUME', SWITCH_MODAL:'SWITCH_MODAL', SCROLL_UP:'pages/SCROLL_UP', SCROLL_DOWN:'pages/SCROLL_DOWN'}),
     
   }
 }
@@ -45,6 +48,9 @@ export default {
 
 
 <style>
+body {
+  margin: 0;
+}
 .control-items {
   display: grid;
   grid-template-columns: repeat(3, 33.3%);

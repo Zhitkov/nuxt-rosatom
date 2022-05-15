@@ -1,8 +1,18 @@
 <template>
   <div class="container">
-    
-    <div class="page">
-      <div class="item">page</div>
+    <div
+      class="page"
+    >
+      <div
+        v-for="(pageModule, index) in pageModules"
+        :key="index"
+        v-show="index === pageType"
+        class="item"
+      >
+        <div v-html="pageModule.pages.data">
+
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -10,10 +20,12 @@
 <script>
 export default {
   props: {
-    pages: Object
+    pageModules: Object,
+    pageType: String,
+    scrollValue: Number
   }
-
 }
+  
 </script>
 
 <style>
@@ -37,6 +49,7 @@ export default {
   width: 70%;
   height: 90%;
   background-color: white;
+  overflow: scroll;
 }
 
 .list {
@@ -52,5 +65,4 @@ export default {
   width: 80%;
   padding: 10% 5%;
 }
-
 </style>
