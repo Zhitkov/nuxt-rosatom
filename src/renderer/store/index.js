@@ -10,20 +10,27 @@ export const state = () => ({
     pageType: '',
     modal: false,
     playerOptions: {
-        // videojs options
-        muted: true,
-        language: 'en',
-        playbackRates: [0.7, 1.0, 1.5, 2.0],
-        sources: [{
-            type: "video/mp4",
-            src: require('~/assets/videos/headcamp.mp4')
-        }],
+        width: '800px', 
+        height: '450px', 
+        color: "#409eff", 
+        title: '', 
+        src: "", 
+        muted: false, 
+        webFullScreen: false,
+        speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], 
+        autoPlay: false, 
+        loop: false, 
+        mirror: false, 
+        ligthOff: false,  
+        volume: 0.3, 
+        control: true, 
+        controlBtns: ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'] ,
     },
     controlItems: [
         {
             logo: require('~/assets/icons/rosatom.svg'),
             title: 'Обращение генерального директора Росатом',
-            info: { module: 'video' }
+            info: { module: 'video', src: '~/assets/videos/greetings.mp4' }
         },
         {
             logo: require('~/assets/icons/control/rosatomNewsIcon.svg'),
@@ -48,7 +55,7 @@ export const state = () => ({
         {
             logo: require('~/assets/icons/control/weatherIcon.svg'),
             title: 'Погода',
-            info: { module: 'Weather' }
+            info: { module: 'weather' }
         },
         {
             logo: require('~/assets/icons/control/vkIcon.svg'),
@@ -85,8 +92,12 @@ export const mutations = {
     },
     SWITCH_INFO(state, module) {
         state.infoStatus = module;
+    },
+    CHANGE_SRC_VIDEO(state, src) {
+        console.log(src, 'CHANGE_SRC_VIDEO src');
+        console.log(state.playerOptions.sources[0].src, 'CHANGE_SRC_VIDEO state.playerOptions.sources[0].src');
+        state.playerOptions.sources[0].src = src
     }
-
 }
 
 export const actions = {
@@ -97,11 +108,14 @@ export const actions = {
     //     }
     //     commit('SWITCH_MODAL')
     // }
-    switchInfo({ commit, dispatch }, { module, type }) {
+    switchInfo({ commit, dispatch }, { module, type, src }) {
         commit('SWITCH_INFO', module)    
         if (type) {
             commit('pages/CHANGE_PAGE_TYPE', type);
             dispatch('pages/addPageContent')
+        }
+        if (src) {
+            commit('CHANGE_SRC_VIDEO', src)
         }
         commit('SWITCH_MODAL')
     }

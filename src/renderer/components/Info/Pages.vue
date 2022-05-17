@@ -1,13 +1,12 @@
 <template>
   <div class="container">
-    <div
-      class="page"
-    >
+    <div class="page">
       <div
         v-for="(pageModule, index) in pageModules"
         :key="index"
         v-show="index === pageType"
         class="item"
+        :ref="index"
       >
         <div v-html="pageModule.pages.data">
 
@@ -23,12 +22,36 @@ export default {
     pageModules: Object,
     pageType: String,
     scrollValue: Number
+  },
+  methods: {
+    scrollToZero() {
+      this.$emit('scrollToZero')
+    }
+  },
+  watch: {
+    scrollValue: function () {
+      this.$nextTick(function () {
+        if (this.$refs[this.pageType][0].scrollHeight <= this.scrollValue) {
+          console.log(111111);
+          this.$refs[this.pageType][0].scrollTop = 0;
+          return this.scrollToZero()
+        }
+        this.$refs[this.pageType][0].scrollTop = this.scrollValue;
+      })
+    }
+
   }
+
 }
-  
+
 </script>
 
 <style>
+img > .page > .item {
+  width: 100%;
+  height: auto;
+}
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -54,15 +77,17 @@ export default {
 
 .list {
   display: flex;
-  width: 30%;
+  width: 100%;
   height: 100vh;
   justify-content: center;
   align-items: center;
   background-color: white;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
+  overflow: scroll;
 }
 .list > .item {
-  width: 80%;
-  padding: 10% 5%;
+  width: 100%;
 }
 </style>

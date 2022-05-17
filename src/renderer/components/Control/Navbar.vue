@@ -29,7 +29,7 @@ nav.navbar {
   height: 20vh;
   display: flex;
   justify-content: space-between;
-  padding: 2% 5%;
+  padding: 2% 0;
   background-color: #0065ab;
 }
 nav.navbar > .navbar-logo {

@@ -1,11 +1,38 @@
 <template>
   <div class="container">
-    <!-- <div class="list" v-if="infoStatus === 'news'"> -->
-    <div class="list" v-if="currentPageNews">
-      <div v-for="news in currentPageNews" :key="news.postfix" @click="showNews(news.link, news.postfix, selector)" class="item">
-        <div v-html="news.data"></div>
-      </div>
+    <ul
+      v-show="infoStatus === 'news'"
+      class="list"
+      v-if="currentPageNews"
+    >
+    <div v-if="showLess">
+      <li
+        v-for="news in currentPageNews.data.slice(0, 10)"
+        :key="news.postfix+'1'"
+        @click="updatePage({link: news.link, postfix: news.postfix, selector: '.news-detail'})"
+        class="item"
+      >
+        <img :src="news.img" />
+        <p>{{news.title}}</p>
+        <!-- <p>{{news.content}}</p> -->
+      </li>
     </div>
+    <div v-else>
+      <li
+        v-for="news in currentPageNews.data.slice(0, 35)"
+        :key="news.postfix"
+        @click="updatePage({link: news.link, postfix: news.postfix, selector: '.news-detail'})"
+        class="item"
+      >
+        <img :src="news.img" />
+        <p>{{news.title}}</p>
+      </li>
+    </div>
+      <button
+        v-show="showLess"
+        @click="showLess = false"
+      >Показать еще 20</button>
+    </ul>
     <div class="elements">
       <div v-show="infoStatus !== 'weather'">
         <div
@@ -25,35 +52,57 @@
           >
         </div>
         <div class="arrows">
-          <img @click="scrollUp()"
+          <img
+            @click="scrollUp()"
             :src="require('~/assets/icons/arrows/left.svg')"
             alt=""
           >
-          <img @click="scrollDown()"
+          <img
+            @click="scrollDown()"
             :src="require('~/assets/icons/arrows/right.svg')"
             alt=""
           >
         </div>
         <div
           class="pagination"
-          v-show="infoStatus === 'news' || 'pages'"
+          v-show="(infoStatus === 'news') || (infoStatus === 'pages')"
         >
           <h1 style="color: white">... из 123</h1>
         </div>
       </div>
       <div v-show="infoStatus === 'weather'">
-        <h1>weather</h1>
+        <div class="weather-container">
+          <div
+            class="weather-item"
+            v-for="(city, index) in cities"
+            :key="index"
+            @click="changeCity(index)"
+          >
+            <img
+              :src="city.logo"
+              alt=""
+            >
+            <h3>{{city.name}}</h3>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex'
+
+
 export default {
+  data: () => ({
+    showLess: true
+  }),
   props: {
     infoStatus: String,
     volume: Boolean,
-    currentPageNews: Array
+    currentPageNews: Object,
+    cities: Object
   },
   methods: {
     switchVolume() {
@@ -64,13 +113,35 @@ export default {
     },
     scrollDown() {
       this.$emit('scrollDown')
-    }
+    },
+    ...mapActions({ updatePage: 'pages/getHTML' }),
+    ...mapMutations({ changeCity:'weather/CHANGE_CURRENT_CITY' })
   }
 
 }
 </script>
 
 <style>
+.weather-container {
+  display: grid;
+  grid-template-columns: repeat(3, 33.3%);
+  grid-template-rows: repeat(3, 33.3%);
+  grid-gap: 20px;
+  padding: 3vh 20vw;
+  text-align: center;
+}
+.weather-item {
+  background-color: white;
+  color: black;
+  border: solid 2px blue;
+  margin: 0;
+}
+
+.weather-item img {
+  background-color: black;
+}
+
+
 .elements {
   display: flex;
   width: 100%;
@@ -78,4 +149,32 @@ export default {
   height: 100%;
   align-items: center;
 }
+
+.list > ul {
+  list-style-type: none;
+  width: 500px;
+}
+
+.list > p {
+  font-size: 15px;
+}
+
+.list > li img {
+  float: left;
+  margin: 0 15px 0 0;
+  width: 100px;
+}
+
+.list > li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+
+.list > li {
+  padding: 10px 0;
+}
+
+li:hover {
+  background: #eee;
+}
 </style>
+

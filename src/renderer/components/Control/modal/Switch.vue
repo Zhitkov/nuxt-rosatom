@@ -1,13 +1,22 @@
 <template>
   <transition name="modal">
     <div class="switch-modal">
-      <div class="close" @click="close">
+      <div class="close">
         <img
+          @click="close"
           :src="require('~/assets/icons/close.svg')"
           alt=""
         >
       </div>
-      <ControlModalElements :currentPageNews="currentPageNews" @scrollUp="scrollUp()" @scrollDown="scrollDown()" @switchVolume="switchVolume" :volume="volume" :infoStatus="infoStatus" ></ControlModalElements>
+      <ControlModalElements
+        :currentPageNews="currentPageNews"
+        @scrollUp="scrollUp()"
+        @scrollDown="scrollDown()"
+        @switchVolume="switchVolume"
+        :volume="volume"
+        :infoStatus="infoStatus"
+        :cities="cities"
+      ></ControlModalElements>
     </div>
   </transition>
 </template>
@@ -17,7 +26,8 @@ export default {
   props: {
     infoStatus: String,
     volume: Boolean,
-    currentPageNews: Array
+    currentPageNews: Object,
+    cities: Object
   },
   data: () => ({
     volumeOn: true
@@ -47,6 +57,8 @@ export default {
   z-index: 1;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  justify-content: flex-end;
 }
 .switch-modal > div:first-child {
   text-align: right;
@@ -62,6 +74,4 @@ export default {
 .close {
   position: absolute;
 }
-
-
 </style>

@@ -28,5 +28,9 @@ export default {
   width: 100vw!important;
 } */
 
+html * {
+  font-family: Roboto, sans-serif;
+}
+
 
 </style>

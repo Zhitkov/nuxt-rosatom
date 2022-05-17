@@ -1,50 +1,71 @@
 <template>
   <div>
-    <videoPlayer
-      class="video-player-box"
-      ref="videoPlayer"
-      :options="playerOptions"
-      :playsinline="true"
-    >
-    </videoPlayer>
+    <videoPlay v-bind="playerOptions"/>
   </div>
 </template>
 
 
-<!-- customEventName="customstatechangedeventname"
-      @play="onPlayerPlay($event)"
-      @pause="onPlayerPause($event)"
-      @ended="onPlayerEnded($event)"
-      @waiting="onPlayerWaiting($event)"
-      @playing="onPlayerPlaying($event)"
-      @loadeddata="onPlayerLoadeddata($event)"
-      @timeupdate="onPlayerTimeupdate($event)"
-      @canplay="onPlayerCanplay($event)"
-      @canplaythrough="onPlayerCanplaythrough($event)"
-      @statechanged="playerStateChanged($event)" -->
-
-
 <script>
-import 'video.js/dist/video-js.css'
+import {videoPlay} from 'vue3-video'
+import 'vue3-video/dist/style.css'
 
-import { videoPlayer } from 'vue-video-player'
-import { mapGetters } from 'vuex'
 
 export default {
-  // name: 'info-video',
-  components: { videoPlayer },
-  computed: {
-    ...mapGetters(['playerOptions'])
-  }
   // data: () => ({
     
-  // })
+  // }),
+  // name: 'info-video',
+  components: {
+    videoPlay
+  },
+  props: {
+    playerOptions: Object
+  },
+  // methods: {
+  //   some() {
+  //   }
+  // },
+  // computed: {
+  //   player() {
+  //     return this.$refs.videoPlayer.player
+  //   }
+  // },
+      
+  // watch: {
+    // playerOptions: function () {
+    //   this.$nextTick(function () {
+    //     if (this.dataPlayerOptions.sources.src !== this.playerOptions.sources.src) {
+    //       console.log('change src');
+    //       this.dataPlayerOptions.sources.src = require(this.playerOptions.sources.src)
+    //     }
+    //     if (this.dataPlayerOptions.muted !== this.playerOptions.muted) {
+    //       console.log('change mute');
+    //       this.dataPlayerOptions.muted = this.playerOptions.muted
+    //     }
+
+    //   })
+    // }
+
+    // playerOptions: function () {
+    //   this.$nextTick(function () {
+    //     if (this.dataPlayerOptions.sources[0].src !== this.playerOptions.sources[0].src) {
+    //       console.log('change src');
+    //       console.log('this.dataPlayerOptions.sources[0].src', this.dataPlayerOptions.sources[0].src);
+    //       console.log('require(this.playerOptions.sources[0].src)', require(this.playerOptions.sources[0].src));
+    //       this.dataPlayerOptions.sources[0].src = require(this.playerOptions.sources[0].src);
+    //     }
+    //   })
+    // }
+  }
+  // computed: {
+  //   ...mapGetters(['playerOptions'])
+  // },
 }
 </script>
 
 <style>
 .video-player-box > div {
-    width: 100vw; 
-    height: 100vh
+  width: 100vw;
+  height: 100vh;
 }
 </style>

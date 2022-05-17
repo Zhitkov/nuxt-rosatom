@@ -1,27 +1,19 @@
 const jsdom = require("jsdom");
+const Parser = require('rss-parser');
 const { JSDOM } = jsdom;
+
 
 export const state = () => ({
     pageType: '',
     scrollValue: 0,
     pageModules: {
         rosatomNews: {
-            news: [
-                {
-                    link: 'https://rosatom.ru',
-                    postfix: '/about/mission/',
-                    selector: '.article__body',
-                    data: '<div>debik</div>',
-                },
-                {
-                    link: 'https://rosatom.ru',
-                    postfix: '/about/mission/',
-                    selector: '.article__body',
-                    data: '<div>debik</div>',
-                }
-            ],
+            news: {
+                rss: 'https://www.rosenergoatom.ru/zhurnalistam/news/rss/',
+                data: []
+            },
             pages: {
-
+                data: ''
             }
         },
         mission: {
@@ -34,22 +26,12 @@ export const state = () => ({
             }
         },
         news: {
-            news: [
-                {
-                    link: 'https://rosatom.ru',
-                    postfix: '/about/mission/',
-                    selector: '.article__body',
-                    data: '<div>debik</div>',
-                },
-                {
-                    link: 'https://rosatom.ru',
-                    postfix: '/about/mission/',
-                    selector: '.article__body',
-                    data: '<div>debik</div>',
-                }
-            ],
+            news: {
+                rss: 'https://www.rosenergoatom.ru/zhurnalistam/novosti-otrasli/rss/',
+                data: []
+            },
             pages: {
-
+                data:''
             }
         },
         career: {
@@ -62,32 +44,13 @@ export const state = () => ({
             }
         },
         vkNews: {
-            news: [
-                {
-                    link: 'https://rosatom.ru',
-                    postfix: '/about/mission/',
-                    selector: '.article__body',
-                    data: '<div>debik</div>',
-                },
-                {
-                    link: 'https://rosatom.ru',
-                    postfix: '/about/mission/',
-                    selector: '.article__body',
-                    data: '<div>debik</div>',
-                }
-            ],
+            news: false,
             pages: {
-
+                link: 'https://api.vk.com/method/wall.get?access_token=a64f8f813c55729b1f44d4c830938857fb1283c611c76bd034e3f99474cf9cdaece1cb622e03d160ae72d&owner_id=-37706009&domain=rosatomru&count=5&filter=owner&v=5.131',
+                data:''
             }
         }
     }
-    // pageModules: {
-    //     rosatomNews: {},
-    //     mission: [],
-    //     news: {},
-    //     career: [],
-    //     vkNews: {}
-    // }
 })
 
 export const getters = {
@@ -115,10 +78,9 @@ export const getters = {
     currentPageNews(state) {
         if (state.pageType) {
             if (state.pageModules[state.pageType].news) {
-                console.log(state.pageModules[state.pageType].news, 'state.pageModules[state.pageType].news');
-                return state.pageModules[state.pageType].news 
+                return state.pageModules[state.pageType].news
             }
-        } 
+        }
     },
     currentPageParametres(state) {
         return state.pageModules[state.pageType].pages;
@@ -131,12 +93,20 @@ export const getters = {
 
 export const mutations = {
     SCROLL_UP(state) {
-        state.scrollValue -= 5;
+        if (state.scrollValue <= 0) {
+            state.scrollValue = 0;
+            return
+        }
+        state.scrollValue -= 300;
         console.log(state.scrollValue);
     },
     SCROLL_DOWN(state) {
-        state.scrollValue += 5;
+        state.scrollValue += 300;
         console.log(state.scrollValue);
+    },
+    SCROLL_TO_ZERO(state) {
+        console.log(state.scrollValue, 'ZERO');
+        state.scrollValue = 0;
     },
     CHANGE_PAGE_TYPE(state, type) {
         state.pageType = type;
@@ -144,26 +114,43 @@ export const mutations = {
     ADD_PAGES_INFO(state, { text }) {
         state.pageModules[state.pageType].pages.data = text
     },
-    // ADD_NEWS_INFO(state, { news }) {
-    //     console.log(type, 'mutation news');
-    //     for (oneNew in news) {
-    //         state.pageModules[state.pageType].news.push(oneNew);
-    //     }
-    // },
+    ADD_NEWS_INFO(state, { news }) {
+        console.log(news, 'mutation news');
+        news.forEach((e) => {
+            state.pageModules[state.pageType].news.data.push({
+                title: e.title,
+                img: e.enclosure.url,
+                link: e.link.split('.ru')[0] + '.ru',
+                postfix: e.link.split('.ru')[1]
+            })
+        })
+    },
 }
 
 export const actions = {
-    async addHTML({ commit }, { link, postfix, selector}) {
+    addPageContent({ dispatch, getters }) {
+        if (getters.currentPageNews) {
+            if (getters.currentPageNews.rss) {
+                dispatch('getRSS', getters.currentPageNews.rss)
+            }
+        } else {
+            if (getters.currentPageParametres.postfix) {
+                dispatch('getHTML', getters.currentPageParametres)
+            } else {
+                dispatch('getVk', getters.currentPageParametres)
+            }
+        }
+    },
+    async getHTML({ commit }, { link, postfix, selector }) {
         let text = '';
         var styleReg = / *(\.cell {)/;
-        console.log('+++'+link+postfix+'+++');
-        await this.$axios.$get(link+postfix).then((html) => {
+        console.log('+++' + link + postfix + '+++');
+        await this.$axios.$get(link + postfix).then((html) => {
             let dom = new JSDOM(html);
             let imgs = dom.window.document.images
             for (let i in imgs) {
                 if (imgs[i].src) {
                     imgs.item(i).src = link + imgs.item(i).src
-                    // imgs[i].src = 'https://rosatom.ru' + imgs[i].src;
                 }
             }
             dom.window.document.querySelector(selector).childNodes.forEach((e) => {
@@ -178,74 +165,21 @@ export const actions = {
         })
         commit('ADD_PAGES_INFO', { text });
     },
-    addPageContent({ dispatch, getters }) {
-        if (getters.currentPageNews) {
-            console.log('got news');
-            // dispatch('addHTML')
-        } else {
-            console.log(getters.currentPageParametres);
-            dispatch('addHTML', getters.currentPageParametres)
-        }
+    async getVk({ commit },  link ) {
+        let text = '';
+        let vk = await this.$axios.$get(link).then((json) => {
+            text += `<p>${e.innerHTML}</p>\n`;
+        });
+        console.log(rss.items, 'content');
+        commit('ADD_NEWS_INFO', { news: rss.items } );
     },
-    // async getRosatomNews({ commit }, type) {
-
-    // },
-    // async addMission({ commit }, type) {
-    //     let text = '';
-    //     var styleReg = / *(\.cell {)/;
-    //     await this.$axios.$get('https://rosatom.ru/about/mission/').then((html) => {
-    //         let dom = new JSDOM(html);
-    //         let imgs = dom.window.document.images
-    //         for (let i in imgs) {
-    //             if (imgs[i].src) {
-    //                 imgs.item(i).src = 'https://rosatom.ru' + imgs.item(i).src
-    //                 // imgs[i].src = 'https://rosatom.ru' + imgs[i].src;
-    //                 console.log(imgs[i].src);
-    //             }
-    //         }
-    //         dom.window.document.querySelector('.article__body').childNodes.forEach((e) => {
-    //             if (e.innerHTML) {
-    //                 if (styleReg.test(e.innerHTML)) {
-    //                     text += `<style>${e.innerHTML}</style>\n`
-    //                     return
-    //                 }
-    //                 text += `<p>${e.innerHTML}</p>\n`;
-    //             }
-    //         })
-    //     })
-    //     commit('ADD_PAGES_INFO', { text, type });
-    // },
-    // async getNews({ commit }, type) {
-
-    // },
-    // async addCareer({ commit }, type) {
-    //     let text = '';
-    //     var styleReg = / *(\.cell {)/;
-    //     await this.$axios.$get('https://rosatom.ru/career/').then((html) => {
-    //         let dom = new JSDOM(html);
-    //         let imgs = dom.window.document.images
-    //         for (let i in imgs) {
-    //             if (imgs[i].src) {
-    //                 imgs.item(i).src = 'https://rosatom.ru' + imgs.item(i).src
-    //                 // imgs[i].src = 'https://rosatom.ru' + imgs[i].src;
-    //                 console.log(imgs[i].src);
-    //             }
-    //         }
-    //         dom.window.document.querySelector('.article__body').childNodes.forEach((e) => {
-    //             if (e.innerHTML) {
-    //                 if (styleReg.test(e.innerHTML)) {
-    //                     text += `<style>${e.innerHTML}</style>\n`
-    //                     return
-    //                 }
-    //                 text += `<p>${e.innerHTML}</p>\n`;
-    //             }
-    //         })
-    //     })
-    //     commit('ADD_PAGES_INFO', { text, type });
-    // }
-    // async getVkNews({ commit }, type) {
-
-    // }
+    async getRSS({ commit },  link ) {
+        let parser = new Parser();
+        let rss = await parser.parseURL(link);
+        console.log(rss.items, 'content');
+        commit('ADD_NEWS_INFO', { news: rss.items } );
+    },
 }
 
-
+//vk
+// https://api.vk.com/method/wall.get?access_token=a64f8f813c55729b1f44d4c830938857fb1283c611c76bd034e3f99474cf9cdaece1cb622e03d160ae72d&owner_id=-37706009&domain=rosatomru&count=5&filter=owner&v=5.131
