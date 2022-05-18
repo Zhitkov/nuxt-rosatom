@@ -10,27 +10,28 @@ export const state = () => ({
     pageType: '',
     modal: false,
     playerOptions: {
-        width: '800px', 
-        height: '450px', 
-        color: "#409eff", 
+        width: '100vw', 
+        height: '100vh', 
+        color: "#409eff",
+        currentTime: 0,
         title: '', 
-        src: "", 
-        muted: false, 
+        src: '', 
+        videoPlay: false,
+        mute: false, 
         webFullScreen: false,
         speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], 
-        autoPlay: false, 
-        loop: false, 
+        autoPlay: true, 
+        loop: true, 
         mirror: false, 
         ligthOff: false,  
         volume: 0.3, 
         control: true, 
-        controlBtns: ['audioTrack', 'quality', 'speedRate', 'volume', 'setting', 'pip', 'pageFullScreen', 'fullScreen'] ,
     },
     controlItems: [
         {
             logo: require('~/assets/icons/rosatom.svg'),
             title: 'Обращение генерального директора Росатом',
-            info: { module: 'video', src: '~/assets/videos/greetings.mp4' }
+            info: { module: 'video', src: require('~/assets/videos/greetings.mp4') }
         },
         {
             logo: require('~/assets/icons/control/rosatomNewsIcon.svg'),
@@ -73,8 +74,14 @@ export const getters = {
         return state.infoStatus
     },
     volume(state) {
-        return state.playerOptions.muted
+        return state.playerOptions.mute
     },
+    videoPlay(state) {
+        return state.playerOptions.videoPlay
+    },
+    // currentTime(state) {
+    //     return state.playerOptions.currentTime
+    // },
     modal(state) {
         return state.modal
     },
@@ -85,7 +92,26 @@ export const getters = {
 
 export const mutations = {
     SWITCH_VOLUME(state) {
-        state.playerOptions.muted = !state.playerOptions.muted 
+        state.playerOptions.mute = !state.playerOptions.mute 
+    },
+    CURRENT_TIME_UP(state) {
+        if ((state.playerOptions.currentTime === 0) || (state.playerOptions.currentTime < 0)) {
+            state.playerOptions.currentTime = 1
+        }
+        if (state.playerOptions.currentTime > 0) {
+            state.playerOptions.currentTime += 1
+        }
+    },
+    CURRENT_TIME_DOWN(state) {
+        if ((state.playerOptions.currentTime === 0) || (state.playerOptions.currentTime > 0)) {
+            state.playerOptions.currentTime = -1
+        }
+        if (state.playerOptions.currentTime < 0) {
+            state.playerOptions.currentTime -= 1
+        }
+    },
+    SWITCH_VIDEO_PLAY(state) {
+        state.playerOptions.videoPlay = !state.playerOptions.videoPlay 
     },
     SWITCH_MODAL(state) {
         state.modal = !state.modal 
@@ -94,9 +120,7 @@ export const mutations = {
         state.infoStatus = module;
     },
     CHANGE_SRC_VIDEO(state, src) {
-        console.log(src, 'CHANGE_SRC_VIDEO src');
-        console.log(state.playerOptions.sources[0].src, 'CHANGE_SRC_VIDEO state.playerOptions.sources[0].src');
-        state.playerOptions.sources[0].src = src
+        state.playerOptions.src = src
     }
 }
 
@@ -117,7 +141,7 @@ export const actions = {
         if (src) {
             commit('CHANGE_SRC_VIDEO', src)
         }
-        commit('SWITCH_MODAL')
+        commit('SWITCH_MODAL')    
     }
 }
 

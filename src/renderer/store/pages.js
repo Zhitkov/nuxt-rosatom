@@ -31,7 +31,7 @@ export const state = () => ({
                 data: []
             },
             pages: {
-                data:''
+                data: ''
             }
         },
         career: {
@@ -47,7 +47,7 @@ export const state = () => ({
             news: false,
             pages: {
                 link: 'https://api.vk.com/method/wall.get?access_token=a64f8f813c55729b1f44d4c830938857fb1283c611c76bd034e3f99474cf9cdaece1cb622e03d160ae72d&owner_id=-37706009&domain=rosatomru&count=5&filter=owner&v=5.131',
-                data:''
+                data: ''
             }
         }
     }
@@ -94,8 +94,7 @@ export const getters = {
 export const mutations = {
     SCROLL_UP(state) {
         if (state.scrollValue <= 0) {
-            state.scrollValue = 0;
-            return
+            return state.scrollValue = 0;
         }
         state.scrollValue -= 300;
         console.log(state.scrollValue);
@@ -137,7 +136,7 @@ export const actions = {
             if (getters.currentPageParametres.postfix) {
                 dispatch('getHTML', getters.currentPageParametres)
             } else {
-                dispatch('getVk', getters.currentPageParametres)
+                dispatch('getVk', getters.currentPageParametres.link)
             }
         }
     },
@@ -165,21 +164,29 @@ export const actions = {
         })
         commit('ADD_PAGES_INFO', { text });
     },
-    async getVk({ commit },  link ) {
+    async getVk({ commit }, link) {
+        console.log('vkvkvkvkvkvkvk', link);
         let text = '';
-        let vk = await this.$axios.$get(link).then((json) => {
-            text += `<p>${e.innerHTML}</p>\n`;
+        await this.$axios.$get(link).then((d) => {
+            d.response.items.forEach((value) => {
+                if (value.attachments[0].type === 'video') {
+                    console.log(value.attachments[0]);
+                    text += `<img src="${value.attachments[0].video.image[4].url}"/>\n`
+                }
+                if (value.attachments[0].type === 'photo') {
+                    console.log(value.attachments[0]);
+                    text += `<img src="${value.attachments[0].photo.sizes[4].url}"/>\n`
+                }
+                text += `<p>${value.text}</p>\n`
+            })
+            // console.log(text);
         });
-        console.log(rss.items, 'content');
-        commit('ADD_NEWS_INFO', { news: rss.items } );
+        commit('ADD_PAGES_INFO', { text });
     },
-    async getRSS({ commit },  link ) {
+    async getRSS({ commit }, link) {
         let parser = new Parser();
         let rss = await parser.parseURL(link);
         console.log(rss.items, 'content');
-        commit('ADD_NEWS_INFO', { news: rss.items } );
+        commit('ADD_NEWS_INFO', { news: rss.items });
     },
 }
-
-//vk
-// https://api.vk.com/method/wall.get?access_token=a64f8f813c55729b1f44d4c830938857fb1283c611c76bd034e3f99474cf9cdaece1cb622e03d160ae72d&owner_id=-37706009&domain=rosatomru&count=5&filter=owner&v=5.131

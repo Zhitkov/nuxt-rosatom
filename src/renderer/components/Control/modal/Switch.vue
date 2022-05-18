@@ -9,11 +9,15 @@
         >
       </div>
       <ControlModalElements
+        @switchVideoPlay="switchVideoPlay()"
         :currentPageNews="currentPageNews"
         @scrollUp="scrollUp()"
         @scrollDown="scrollDown()"
         @switchVolume="switchVolume"
+        @currentTimeUp="currentTimeUp"
+        @currentTimeDown="currentTimeDown"
         :volume="volume"
+        :videoPlay="videoPlay"
         :infoStatus="infoStatus"
         :cities="cities"
       ></ControlModalElements>
@@ -27,7 +31,8 @@ export default {
     infoStatus: String,
     volume: Boolean,
     currentPageNews: Object,
-    cities: Object
+    cities: Object,
+    videoPlay: Boolean
   },
   data: () => ({
     volumeOn: true
@@ -44,6 +49,15 @@ export default {
     },
     scrollDown() {
       this.$emit('scrollDown')
+    },
+    switchVideoPlay() {
+      this.$emit('switchVideoPlay')
+    },
+    currentTimeDown() {
+      this.$emit('currentTimeDown')
+    },
+    currentTimeUp() {
+      this.$emit('currentTimeUp')
     }
   }
 
@@ -72,6 +86,7 @@ export default {
   background-color: white;
 }
 .close {
+  width: 200px;
   position: absolute;
 }
 </style>

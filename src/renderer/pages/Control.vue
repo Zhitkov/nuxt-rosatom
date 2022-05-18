@@ -5,10 +5,14 @@
       @closeModal="SWITCH_MODAL()"
       :infoStatus="infoStatus"
       :volume="volume"
+      :videoPlay="videoPlay"
       :currentPageNews="currentPageNews"
+      @switchVideoPlay="SWITCH_VIDEO_PLAY()"
       @switchVolume="SWITCH_VOLUME()"
-      @scrollUp="SCROLL_UP()" 
-      @scrollDown="SCROLL_DOWN()" 
+      @scrollUp="SCROLL_UP()"
+      @scrollDown="SCROLL_DOWN()"
+      @currentTimeDown="CURRENT_TIME_DOWN()"
+      @currentTimeUp="CURRENT_TIME_UP()"
       @updatePage="checker(newPage)"
       :cities="cities"
     ></ControlModalSwitch>
@@ -38,15 +42,40 @@ export default {
 
   // }),
   computed: {
-    ...mapGetters({controlItems: 'controlItems', infoStatus: 'infoStatus', volume: 'volume', modal: 'modal', currentPageNews: 'pages/currentPageNews', cities: 'weather/cities'})
+    ...mapGetters({
+      controlItems: 'controlItems',
+      infoStatus: 'infoStatus',
+      volume: 'volume',
+      videoPlay: 'videoPlay',
+      modal: 'modal',
+      currentPageNews: 'pages/currentPageNews',
+      cities: 'weather/cities'
+    })
+  },
+  watch: {
+    modal: function() {
+      if (!this.modal) {
+        setTimeout(() => {
+          this.switchInfo({module: 'video', src: require('~/assets/videos/headcamp.mp4')})
+        }, 5000000); 
+      } 
+    }
   },
   methods: {
-    ...mapActions({switchInfo: 'switchInfo'}),
-    ...mapMutations({SWITCH_VOLUME:'SWITCH_VOLUME', SWITCH_MODAL:'SWITCH_MODAL', SCROLL_UP:'pages/SCROLL_UP', SCROLL_DOWN:'pages/SCROLL_DOWN'}),
-    checker(newPage){
-      console.log({newPage}, 'control');
+    ...mapActions({ switchInfo: 'switchInfo' }),
+    ...mapMutations({
+      SWITCH_VOLUME: 'SWITCH_VOLUME',
+      CURRENT_TIME_UP: 'CURRENT_TIME_UP',
+      CURRENT_TIME_DOWN: 'CURRENT_TIME_DOWN',
+      SWITCH_VIDEO_PLAY: 'SWITCH_VIDEO_PLAY',
+      SWITCH_MODAL: 'SWITCH_MODAL',
+      SCROLL_UP: 'pages/SCROLL_UP',
+      SCROLL_DOWN: 'pages/SCROLL_DOWN'
+    }),
+    checker(newPage) {
+      console.log({ newPage }, 'control');
     }
-    
+
   }
 }
 </script>
@@ -84,6 +113,4 @@ body {
   border-radius: 5px;
   height: 150px;
 }
-
-
 </style>
