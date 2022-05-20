@@ -1,4 +1,6 @@
 // import { createPersistedState, createSharedMutations } from "vuex-electron"
+
+
 import createCache from 'vuex-cache';
 
 export const plugins = [

@@ -8,11 +8,15 @@
           alt=""
         >
       </div>
+      <ControlModalNews
+      v-if="currentPageNews"
+      :currentPageNews="currentPageNews"
+      :infoStatus="infoStatus">
+      </ControlModalNews>
       <ControlModalElements
-        @switchVideoPlay="switchVideoPlay()"
-        :currentPageNews="currentPageNews"
-        @scrollUp="scrollUp()"
-        @scrollDown="scrollDown()"
+        @switchVideoPlay="switchVideoPlay"
+        @scrollUp="scrollUp"
+        @scrollDown="scrollDown"
         @switchVolume="switchVolume"
         @currentTimeUp="currentTimeUp"
         @currentTimeDown="currentTimeDown"
@@ -86,7 +90,7 @@ export default {
   background-color: white;
 }
 .close {
-  width: 200px;
+  max-width: 200px;
   position: absolute;
 }
 </style>

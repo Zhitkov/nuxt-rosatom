@@ -57,7 +57,7 @@ export default {
       if (!this.modal) {
         setTimeout(() => {
           this.switchInfo({module: 'video', src: require('~/assets/videos/headcamp.mp4')})
-        }, 5000000); 
+        }, 30000); 
       } 
     }
   },

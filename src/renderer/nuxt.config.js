@@ -16,11 +16,6 @@ module.exports = {
   style: `body {
   margin: 0 !important;
 }`,
-  plugins: [
-    
-    
-    
-  ],
   components: {
     dirs: [
       '~/components'
@@ -34,5 +29,13 @@ module.exports = {
   buildModules: [
     
   ],
-  modules: ['@nuxtjs/axios']
-};
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
+  ],
+  proxy: {
+    // '/rosenergoatom': { target: 'https://www.rosenergoatom.ru' },
+    // '/rosatom': { target: 'https://rosatom.ru' },
+    // '/vk': { target: '' }
+  }
+}

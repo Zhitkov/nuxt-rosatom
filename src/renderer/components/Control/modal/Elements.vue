@@ -1,38 +1,5 @@
 <template>
   <div class="container">
-    <ul
-      v-show="infoStatus === 'news'"
-      class="list"
-      v-if="currentPageNews"
-    >
-      <div v-if="showLess">
-        <li
-          v-for="news in currentPageNews.data.slice(0, 10)"
-          :key="news.postfix+'1'"
-          @click="updatePage({link: news.link, postfix: news.postfix, selector: '.news-detail'})"
-          class="item"
-        >
-          <img :src="news.img" />
-          <p>{{news.title}}</p>
-          <!-- <p>{{news.content}}</p> -->
-        </li>
-      </div>
-      <div v-else>
-        <li
-          v-for="news in currentPageNews.data.slice(0, 35)"
-          :key="news.postfix"
-          @click="updatePage({link: news.link, postfix: news.postfix, selector: '.news-detail'})"
-          class="item"
-        >
-          <img :src="news.img" />
-          <p>{{news.title}}</p>
-        </li>
-      </div>
-      <button
-        v-show="showLess"
-        @click="showLess = false"
-      >Показать еще 20</button>
-    </ul>
     <div class="elements">
       <div v-show="infoStatus !== 'weather'">
         <div
@@ -67,7 +34,7 @@
             alt=""
           >
         </div>
-        <div class="arrows">
+        <div v-show="infoStatus !== 'video'" class="arrows">
           <img
             @click="forDown()"
             :src="require('~/assets/icons/arrows/left.svg')"
@@ -111,9 +78,6 @@ import { mapActions, mapMutations } from 'vuex'
 
 
 export default {
-  data: () => ({
-    showLess: true
-  }),
   props: {
     infoStatus: String,
     volume: Boolean,
@@ -172,45 +136,15 @@ export default {
 .weather-item img {
   background-color: black;
 }
-
+.arrows {
+  transform: rotate(270deg);
+}
 .elements {
   display: flex;
   width: 100%;
   justify-content: center;
   height: 100%;
   align-items: center;
-}
-
-.list > div > ul {
-  list-style-type: none;
-  width: 500px;
-}
-
-.list > div > p {
-  font-size: 15px;
-}
-
-.list > div > li > img {
-  float: left;
-  margin: 0 15px 0 0;
-  width: 100px;
-}
-
-.list > div > li p {
-  font: 200 12px/1.5 Georgia, Times New Roman, serif;
-}
-
-.list > div > li {
-  padding: 10px 0;
-}
-
-.list > div > li > img {
-  width: 90px;
-  height: 60px;
-}
-
-li:hover {
-  background: #eee;
 }
 </style>
 
