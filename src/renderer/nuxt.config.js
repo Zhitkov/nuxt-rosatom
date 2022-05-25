@@ -21,7 +21,11 @@ module.exports = {
       '~/components'
     ]
   },
-  plugins: [{ src: '~plugins/vuex-shared-mutations.js', ssr: false }, { src: '~/plugins/vuex-cache.js', ssr: false }],
+  plugins: [
+    { src: '~plugins/vuex-shared-mutations.js', ssr: false },
+    { src: '~/plugins/vuex-cache.js', ssr: false },
+    { src: '~/plugins/vidle.js' }
+  ],
   axios: {
     // proxy: true
   },

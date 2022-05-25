@@ -9,22 +9,25 @@
         >
       </div>
       <ControlModalNews
-      v-if="currentPageNews"
-      :currentPageNews="currentPageNews"
-      :infoStatus="infoStatus">
+        v-if="currentPageNews"
+        :currentPageNews="currentPageNews"
+        :infoStatus="infoStatus"
+      >
       </ControlModalNews>
       <ControlModalElements
         @switchVideoPlay="switchVideoPlay"
-        @scrollUp="scrollUp"
-        @scrollDown="scrollDown"
         @switchVolume="switchVolume"
-        @currentTimeUp="currentTimeUp"
-        @currentTimeDown="currentTimeDown"
         :volume="volume"
         :videoPlay="videoPlay"
         :infoStatus="infoStatus"
         :cities="cities"
+        
+        :pageType="pageType"
+        :pageModules="pageModules"
+        :scrollValue="scrollValue"
       ></ControlModalElements>
+      <!-- @currentTimeUp="currentTimeUp"
+        @currentTimeDown="currentTimeDown" -->
     </div>
   </transition>
 </template>
@@ -36,7 +39,11 @@ export default {
     volume: Boolean,
     currentPageNews: Object,
     cities: Object,
-    videoPlay: Boolean
+    videoPlay: Boolean,
+
+    pageModules: Object,
+    pageType: String,
+    scrollValue: Number
   },
   data: () => ({
     volumeOn: true
@@ -57,12 +64,12 @@ export default {
     switchVideoPlay() {
       this.$emit('switchVideoPlay')
     },
-    currentTimeDown() {
-      this.$emit('currentTimeDown')
-    },
-    currentTimeUp() {
-      this.$emit('currentTimeUp')
-    }
+    // currentTimeDown() {
+    //   this.$emit('currentTimeDown')
+    // },
+    // currentTimeUp() {
+    //   this.$emit('currentTimeUp')
+    // }
   }
 
 }
@@ -73,8 +80,8 @@ export default {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.499);
   z-index: 1;
-  width: 100vw;
-  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
   display: flex;
   justify-content: flex-end;
 }
@@ -82,7 +89,7 @@ export default {
   text-align: right;
 }
 .switch-modal > div {
-  width: 100%;
+  width: 100vw;
   text-align: center;
   justify-content: flex-start;
 }

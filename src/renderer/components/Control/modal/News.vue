@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="infoStatus === 'news'"
-    class="list"
+    class="news-list"
   >
     <div
       class="showLess"
@@ -11,7 +11,7 @@
         v-for="news in currentPageNews.data.slice(0, 10)"
         :key="news.postfix+'1'"
         @click="updatePage({link: news.link, postfix: news.postfix, selector: '.news-detail'})"
-        class="item"
+        class="news-item"
       >
         <img :src="news.img" />
         <p>{{news.title}}</p>
@@ -26,7 +26,7 @@
         v-for="news in currentPageNews.data.slice(0, 35)"
         :key="news.postfix"
         @click="updatePage({link: news.link, postfix: news.postfix, selector: '.news-detail'})"
-        class="item"
+        class="news-item"
       >
         <img :src="news.img" />
         <p>{{news.title}}</p>
@@ -40,10 +40,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data: () => ({
     showLess: true
   }),
+  methods: {
+  ...mapActions({ updatePage: 'pages/getHTML' }),
+  },
   props: {
     infoStatus: String,
     currentPageNews: Object,
@@ -52,32 +57,36 @@ export default {
 }
 </script>
 
-<style scoped>
-.list {
+<style>
+.news-list {
   background-color: white;
   overflow:scroll;
+  width: 300px;
 }
-.list > .showLess > p {
+.news-list > .showLess > p {
   font-size: 15px;
 }
 
-.list > .showLess > .item > img {
+.news-list > .showLess > .news-item > img {
   float: left;
   margin: 0 15px 0 0;
   width: 100px;
 }
 
-.list > .showLess > .item > p {
+.news-list > .showLess > .news-item > p {
   font: 200 12px/1.5 Georgia, Times New Roman, serif;
 }
 
-.list > .showLess > .item {
+.news-list > .showLess > .news-item {
   padding: 10px 0;
 }
 
-.list > .showLess > .item > img {
+.news-list > .showLess > .news-item > img {
   width: 90px;
   height: 60px;
+}
+.news-list > .news-item {
+  width: 100%;
 }
 
 .item:hover {

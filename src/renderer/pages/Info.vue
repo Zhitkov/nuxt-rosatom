@@ -12,11 +12,11 @@
     ></InfoWeather>
     <InfoPages
       v-show="(infoStatus === 'news') || (infoStatus ===  'pages')"
+      style="max-width: 100vw"
       :pageType="pageType"
       :pageModules="pageModules"
       :infoStatus="infoStatus"
       :scrollValue="scrollValue"
-      @scrollToZero="scrollToZero"
     ></InfoPages>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     ...mapActions(['getMission']),
-    ...mapMutations({ scrollToZero: 'pages/SCROLL_TO_ZERO' }),
+    // ...mapMutations({ scrollToZero: 'pages/SCROLL_TO_ZERO' }),
     // ...mapMutations({ SCROLL_UP: 'pages/SCROLL_UP', SCROLL_DOWN: 'pages/SCROLL_DOWN' })
   }
 

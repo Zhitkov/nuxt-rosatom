@@ -9684,6 +9684,11 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
+v-idle@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/v-idle/-/v-idle-0.2.1.tgz#7a87b684726c8e6e4d97b0ca2c66b4cc2ce59736"
+  integrity sha512-GzjE8u2XvxuN1GvY48VOkNyRKEzYGepYYjusXNWL+vTeHWCghAnv6NjACthLaKfGHBKI+YxKHaRnugKZ9JPu5Q==
+
 vary@^1.1.2, vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
@@ -9745,6 +9750,11 @@ vue-router@^3.5.1:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.5.3.tgz#041048053e336829d05dafacf6a8fb669a2e7999"
   integrity sha512-FUlILrW3DGitS2h+Xaw8aRNvGTwtuaxrRkNSHWTizOfLUie7wuYwezeZ50iflRn8YPV5kxmU2LQuu3nM/b3Zsg==
+
+vue-scroll-sync@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/vue-scroll-sync/-/vue-scroll-sync-1.0.5.tgz#c483d4a4dd650b69f23c4ceddbc11a156dca4427"
+  integrity sha512-/++gkH+QtO6TQs4gYHdqCeO45/ZWVrvidMcrQNS162u0lkn06OcMeB2uaP8yW0jklCmIar82lTZD61gLO8sm5g==
 
 vue-server-renderer@^2.6.12:
   version "2.6.14"

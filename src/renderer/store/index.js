@@ -96,22 +96,22 @@ export const mutations = {
     SWITCH_VOLUME(state) {
         state.playerOptions.mute = !state.playerOptions.mute 
     },
-    CURRENT_TIME_UP(state) {
-        if ((state.playerOptions.currentTime === 0) || (state.playerOptions.currentTime < 0)) {
-            state.playerOptions.currentTime = 1
-        }
-        if (state.playerOptions.currentTime > 0) {
-            state.playerOptions.currentTime += 1
-        }
-    },
-    CURRENT_TIME_DOWN(state) {
-        if ((state.playerOptions.currentTime === 0) || (state.playerOptions.currentTime > 0)) {
-            state.playerOptions.currentTime = -1
-        }
-        if (state.playerOptions.currentTime < 0) {
-            state.playerOptions.currentTime -= 1
-        }
-    },
+    // CURRENT_TIME_UP(state) {
+    //     if ((state.playerOptions.currentTime === 0) || (state.playerOptions.currentTime < 0)) {
+    //         state.playerOptions.currentTime = 1
+    //     }
+    //     if (state.playerOptions.currentTime > 0) {
+    //         state.playerOptions.currentTime += 1
+    //     }
+    // },
+    // CURRENT_TIME_DOWN(state) {
+    //     if ((state.playerOptions.currentTime === 0) || (state.playerOptions.currentTime > 0)) {
+    //         state.playerOptions.currentTime = -1
+    //     }
+    //     if (state.playerOptions.currentTime < 0) {
+    //         state.playerOptions.currentTime -= 1
+    //     }
+    // },
     SWITCH_VIDEO_PLAY(state) {
         state.playerOptions.videoPlay = !state.playerOptions.videoPlay 
     },

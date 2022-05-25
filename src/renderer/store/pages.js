@@ -46,7 +46,7 @@ export const state = () => ({
         vkNews: {
             news: false,
             pages: {
-                link: 'https://api.vk.com/method/wall.get?access_token=a64f8f813c55729b1f44d4c830938857fb1283c611c76bd034e3f99474cf9cdaece1cb622e03d160ae72d&owner_id=-37706009&domain=rosatomru&count=5&filter=owner&v=5.131',
+                link: `https://api.vk.com/method/wall.get?access_token=a64f8f813c55729b1f44d4c830938857fb1283c611c76bd034e3f99474cf9cdaece1cb622e03d160ae72d&owner_id=-37706009&domain=rosatomru&count=5&filter=owner&v=5.131`,
                 data: ''
             }
         }
@@ -92,20 +92,24 @@ export const getters = {
 }
 
 export const mutations = {
-    SCROLL_UP(state) {
-        if (state.scrollValue <= 0) {
-            return state.scrollValue = 0;
-        }
-        state.scrollValue -= 300;
-        console.log(state.scrollValue);
-    },
-    SCROLL_DOWN(state) {
-        state.scrollValue += 300;
-        console.log(state.scrollValue);
-    },
-    SCROLL_TO_ZERO(state) {
-        console.log(state.scrollValue, 'ZERO');
-        state.scrollValue = 0;
+    // SCROLL_UP(state) {
+    //     if (state.scrollValue <= 0) {
+    //         return state.scrollValue = 0;
+    //     }
+    //     state.scrollValue -= 300;
+    //     console.log(state.scrollValue);
+    // },
+    // SCROLL_DOWN(state) {
+    //     state.scrollValue += 300;
+    //     console.log(state.scrollValue);
+    // },
+    // SCROLL_TO_ZERO(state) {
+    //     console.log(state.scrollValue, 'ZERO');
+    //     state.scrollValue = 0;
+    // },
+    CHANGE_SCROLL_VALUE(state, scrollValue) {
+        state.scrollValue = scrollValue;
+        // console.log(scrollValue, 'scrollValue mutation');
     },
     CHANGE_PAGE_TYPE(state, type) {
         state.pageType = type;
@@ -170,7 +174,7 @@ export const actions = {
         await this.$axios.$get(link).then((d) => {
             d.response.items.forEach((value) => {
                 if (value.attachments[0].type === 'video') {
-                    console.log(value.attachments[0]);
+                    // `https://api.vk.com/method/video.get?access_token=${access_token}&videos=${owner_id}_${value.attachments[0].id}&count=1&offset=0&v=5.131`
                     text += `<img src="${value.attachments[0].video.image[4].url}"/>\n`
                 }
                 if (value.attachments[0].type === 'photo') {

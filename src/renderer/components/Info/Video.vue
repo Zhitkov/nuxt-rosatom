@@ -60,17 +60,17 @@ export default {
         this.dataPlayerOptions.mute = this.playerOptions.mute
       })
     },
-    'playerOptions.currentTime': function () {
-      console.log('change currentTime');
-      this.$nextTick(function () {
-        if (this.playerOptions.currentTime > 0) {
-          console.log(this.$refs.videoPlay.videoInfo);
-          return this.$refs.videoPlay.videoInfo.currentTime = 5;
-        }
-        console.log(this.$refs.videoPlay.videoInfo);
-        return this.$refs.videoPlay.videoInfo.currentTime = 5;
-      })
-    },
+    // 'playerOptions.currentTime': function () {
+    //   console.log('change currentTime');
+    //   this.$nextTick(function () {
+    //     if (this.playerOptions.currentTime > 0) {
+    //       console.log(this.$refs.videoPlay.videoInfo);
+    //       return this.$refs.videoPlay.videoInfo.currentTime = 5;
+    //     }
+    //     console.log(this.$refs.videoPlay.videoInfo);
+    //     return this.$refs.videoPlay.videoInfo.currentTime = 5;
+    //   })
+    // },
     'playerOptions.videoPlay': function () {
       this.$nextTick(function () {
         if (this.playerOptions.videoPlay) {

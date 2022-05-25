@@ -52,14 +52,6 @@ export const getters = {
     weatherApi(s){
         return s.weatherApi;
     }
-
-
-    // spb(s) { s.cities.spb },
-    // msk(s) { s.cities.msk },
-    // ekb(s) { s.cities.ekb },
-    // kaz(s) { s.cities.kaz },
-    // nvb(s) { s.cities.nvb },
-    // sam(s) { s.cities.sam }
 }
 
 export const mutations = {
@@ -74,8 +66,8 @@ export const mutations = {
 export const actions = {
     // async changeCity({ state, commit }, city) {
     //     commit('CHANGE_CURRENT_CITY', city)
-        // let response = await this.$axios.$get(`http://api.openweathermap.org/data/2.5/forecast?lat=${state.cities[city].lat}&lon=${state.cities[city].lon}&appid=${api}`);
-        // console.log(response);
-        // commit('ADD_CURRENT_WEATHER', response)
+    //     let response = await this.$axios.$get(`http://api.openweathermap.org/data/2.5/forecast?lat=${state.cities[city].lat}&lon=${state.cities[city].lon}&appid=${api}`);
+    //     console.log(response);
+    //     commit('ADD_CURRENT_WEATHER', response)
     // }
 }

@@ -1,11 +1,14 @@
 <template>
   <div class="container">
-    <div class="page">
+    <div
+      id="page"
+      class="page"
+    >
       <div
         v-for="(pageModule, index) in pageModules"
         :key="index"
         v-show="index === pageType"
-        class="item"
+        class="page-item"
         :ref="index"
       >
         <div v-html="pageModule.pages.data">
@@ -17,6 +20,10 @@
 </template>
 
 <script>
+
+import { mapMutations } from 'vuex'
+
+
 export default {
   props: {
     pageModules: Object,
@@ -24,22 +31,32 @@ export default {
     scrollValue: Number
   },
   methods: {
-    scrollToZero() {
-      this.$emit('scrollToZero')
+    ...mapMutations({ changeScrollValue: 'pages/CHANGE_SCROLL_VALUE' }),
+    scroller() {
+      this.changeScrollValue(this.$refs[this.pageType][0].scrollTop);
     }
   },
+  mounted() {
+    for (const pageType in this.$refs) {
+      this.$refs[pageType][0].addEventListener('scroll', this.scroller);
+    }
+  },
+
+  // watch: {
+  //   'this.$refs[this.pageType][0].scrollTop': function () {
+  //     this.$nextTick(function () {
+  //       console.log(1);
+  //     })
+  //   }
+  // },
   watch: {
     scrollValue: function () {
       this.$nextTick(function () {
-        if (this.$refs[this.pageType][0].scrollHeight <= this.scrollValue) {
-          console.log(111111);
-          this.$refs[this.pageType][0].scrollTop = 0;
-          return this.scrollToZero()
+        if (this.$refs[this.pageType][0].scrollTop !== this.scrollValue) {
+          this.$refs[this.pageType][0].scrollTop = this.scrollValue;
         }
-        this.$refs[this.pageType][0].scrollTop = this.scrollValue;
       })
     }
-
   }
 
 }
@@ -47,13 +64,14 @@ export default {
 </script>
 
 <style>
-.page > .item > div > img {
+.page > .page-item > div > img {
   width: 100%;
   height: auto;
 }
 
 .container {
-  width: 100vw;
+  /* max-width: 70vw; */
+  width: 100%;
   height: 100vh;
   display: flex;
   justify-content: flex-start;
@@ -68,9 +86,9 @@ export default {
   align-items: center;
 }
 
-.page > .item {
-  width: 70%;
-  height: 90%;
+.page > .page-item {
+  width: 100%;
+  height: 100%;
   background-color: white;
   overflow: scroll;
 }
@@ -86,8 +104,5 @@ export default {
   margin: 0;
   padding: 0;
   overflow: scroll;
-}
-.list > .item {
-  width: 100%;
 }
 </style>

@@ -34,8 +34,11 @@
             alt=""
           >
         </div>
-        <div v-show="infoStatus !== 'video'" class="arrows">
-          <img
+        <div
+          v-show="(infoStatus === 'news') || (infoStatus ===  'pages')"
+          class="pages"
+        >
+          <!-- <img
             @click="forDown()"
             :src="require('~/assets/icons/arrows/left.svg')"
             alt=""
@@ -44,7 +47,13 @@
             @click="forUp()"
             :src="require('~/assets/icons/arrows/right.svg')"
             alt=""
-          >
+          > -->
+          <InfoPages
+            :pageType="pageType"
+            :pageModules="pageModules"
+            :infoStatus="infoStatus"
+            :scrollValue="scrollValue"
+          ></InfoPages>
         </div>
         <!-- <div
           class="pagination"
@@ -84,6 +93,10 @@ export default {
     videoPlay: Boolean,
     currentPageNews: Object,
     cities: Object,
+
+    pageModules: Object,
+    pageType: String,
+    scrollValue: Number    
   },
   methods: {
     forUp() {
@@ -136,8 +149,8 @@ export default {
 .weather-item img {
   background-color: black;
 }
-.arrows {
-  transform: rotate(270deg);
+.pages {
+  
 }
 .elements {
   display: flex;

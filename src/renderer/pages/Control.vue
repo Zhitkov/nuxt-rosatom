@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!--  -->
+    <v-idle style="display: none" @idle="onidle" :loop="false" :duration="300" :events="['mousemove', 'keypress', 'click', 'touchmove', 'touchstart', 'touchmove', 'scroll']"/>
     <ControlModalSwitch
       v-show="modal"
       @closeModal="SWITCH_MODAL()"
@@ -15,6 +17,10 @@
       @currentTimeUp="CURRENT_TIME_UP()"
       @updatePage="checker(newPage)"
       :cities="cities"
+
+      :pageType="pageType"
+      :pageModules="pageModules"
+      :scrollValue="scrollValue"
     ></ControlModalSwitch>
     <ControlNavbar :logo="require(`~/assets/icons/rosatom.svg`)"></ControlNavbar>
     <div class="control-items">
@@ -39,7 +45,7 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   // data: () => ({
-
+    
   // }),
   computed: {
     ...mapGetters({
@@ -49,17 +55,24 @@ export default {
       videoPlay: 'videoPlay',
       modal: 'modal',
       currentPageNews: 'pages/currentPageNews',
-      cities: 'weather/cities'
+      cities: 'weather/cities',
+      pageType: 'pages/pageType',
+      pageModules: 'pages/pageModules',
+      scrollValue: 'pages/scrollValue'
     })
   },
+  // created() {
+    
+  // },
   watch: {
-    modal: function() {
-      if (!this.modal) {
-        setTimeout(() => {
-          this.switchInfo({module: 'video', src: require('~/assets/videos/headcamp.mp4')})
-        }, 30000); 
-      } 
-    }
+    // modal: function () {
+    //   console.log(1);
+      // if (!this.modal) {
+      //   setTimeout(() => {
+      //     this.switchInfo({module: 'video', src: require('~/assets/videos/headcamp.mp4')})
+      //   }, 30000); 
+      // } else return;
+    // }
   },
   methods: {
     ...mapActions({ switchInfo: 'switchInfo' }),
@@ -72,6 +85,12 @@ export default {
       SCROLL_UP: 'pages/SCROLL_UP',
       SCROLL_DOWN: 'pages/SCROLL_DOWN'
     }),
+    onidle() {
+      this.switchInfo({ module: 'video', src: require('~/assets/videos/headcamp.mp4') })
+      if(!this.modal) {
+        this.SWITCH_MODAL()
+      }
+    },
     checker(newPage) {
       console.log({ newPage }, 'control');
     }
