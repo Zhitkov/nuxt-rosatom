@@ -1,12 +1,12 @@
 <template>
   <nav class="navbar">
-    <div class="navbar-logo">
+    <!-- <div class="navbar-logo">
 
       <img
         :src="logo"
         alt="logo"
       >
-    </div>
+    </div> -->
     <div class="navbar-title">
       <h2>Страна Росатом</h2>
     </div>
@@ -26,11 +26,14 @@ export default {
 <style>
 nav.navbar {
   width: 100vw;
-  height: 20vh;
+  height: 23vh;
   display: flex;
   justify-content: space-between;
-  padding: 2% 0;
+  padding: 2vh 0;
   background-color: #0065ab;
+  background-image: url('~/assets/control/top.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 nav.navbar > .navbar-logo {
   width: 20%;
@@ -41,7 +44,7 @@ nav.navbar > .navbar-logo > img {
   height: 100%;
 }
 nav.navbar > .navbar-title {
-  width: 80%;
+  width: 100%;
   text-align: center;
   justify-content: center;
   align-self: center;
@@ -49,6 +52,7 @@ nav.navbar > .navbar-title {
 nav.navbar > .navbar-title > h2 {
   font-weight: 500;
   color: white;
+  font-size: 15pt;
 }
 
 </style>

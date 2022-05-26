@@ -12,7 +12,6 @@ export const state = () => ({
         width: '100vw', 
         height: '100vh', 
         color: "#409eff",
-        currentTime: 0,
         title: '', 
         src: '', 
         videoPlay: false,

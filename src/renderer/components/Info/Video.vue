@@ -16,15 +16,12 @@
 
 <script>
 import VideoPlayer from "vue-video-player-mx";
-// import "vue-video-player-mx/dist/index.css";
-
 
 export default {
   data: () => ({
     dataPlayerOptions: {
       width: '100vw',
       height: '100vh',
-      currentTime: 0,
       color: "#409eff",
       src: "",
       mute: true,
@@ -38,7 +35,6 @@ export default {
       control: true,
     }
   }),
-  // name: 'info-video',
   components: {
     VideoPlayer
   },
@@ -60,17 +56,6 @@ export default {
         this.dataPlayerOptions.mute = this.playerOptions.mute
       })
     },
-    // 'playerOptions.currentTime': function () {
-    //   console.log('change currentTime');
-    //   this.$nextTick(function () {
-    //     if (this.playerOptions.currentTime > 0) {
-    //       console.log(this.$refs.videoPlay.videoInfo);
-    //       return this.$refs.videoPlay.videoInfo.currentTime = 5;
-    //     }
-    //     console.log(this.$refs.videoPlay.videoInfo);
-    //     return this.$refs.videoPlay.videoInfo.currentTime = 5;
-    //   })
-    // },
     'playerOptions.videoPlay': function () {
       this.$nextTick(function () {
         if (this.playerOptions.videoPlay) {
@@ -79,62 +64,8 @@ export default {
         return this.$refs.videoPlay.play()
       })
     },
-    methods: {
-      onPlay(info) {
-        console.log(info.currentTime);
-      },
-
-      onPause(info) {
-        console.log(info.currentTime);
-      },
-    }
-    // playerOptions: function () {
-    //   this.$nextTick(function () {
-    //     if (this.dataPlayerOptions.src !== this.playerOptions.src) {
-    //       console.log('change src');
-    //       this.dataPlayerOptions.src = require(this.playerOptions.src)
-    //     }
-    //     if (this.dataPlayerOptions.mute !== this.playerOptions.mute) {
-    //       console.log('change mute');
-    //       this.dataPlayerOptions.mute = this.playerOptions.mute
-    //     }
-
-    //   })
-    // }
-  },
-  mounted() {
-    setTimeout(() => {
-      console.log(this.$refs.videoPlay)
-    }, 1000);
   }
 }
-
-  // methods: {
-  //   some() {
-  //   }
-  // },
-  // computed: {
-  //   player() {
-  //     return this.$refs.videoPlayer.player
-  //   }
-  // },
-
-
-
-  // playerOptions: function () {
-  //   this.$nextTick(function () {
-  //     if (this.dataPlayerOptions.sources[0].src !== this.playerOptions.sources[0].src) {
-  //       console.log('change src');
-  //       console.log('this.dataPlayerOptions.sources[0].src', this.dataPlayerOptions.sources[0].src);
-  //       console.log('require(this.playerOptions.sources[0].src)', require(this.playerOptions.sources[0].src));
-  //       this.dataPlayerOptions.sources[0].src = require(this.playerOptions.sources[0].src);
-  //     }
-  //   })
-  // }
-  // computed: {
-  //   ...mapGetters(['playerOptions'])
-  // },
-// }
 </script>
 
 <style>

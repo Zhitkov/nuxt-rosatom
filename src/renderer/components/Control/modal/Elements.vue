@@ -83,12 +83,12 @@ export default {
     scrollValue: Number    
   },
   methods: {
-    forUp() {
-      this.infoStatus === 'video' ? this.currentTimeUp() : this.scrollUp()
-    },
-    forDown() {
-      this.infoStatus === 'video' ? this.currentTimeDown() : this.scrollDown()
-    },
+    // forUp() {
+    //   this.infoStatus === 'video' ? this.currentTimeUp() : this.scrollUp()
+    // },
+    // forDown() {
+    //   this.infoStatus === 'video' ? this.currentTimeDown() : this.scrollDown()
+    // },
     switchVolume() {
       this.$emit('switchVolume')
     },
@@ -100,12 +100,6 @@ export default {
     },
     scrollDown() {
       this.$emit('scrollDown')
-    },
-    currentTimeDown() {
-      this.$emit('currentTimeDown')
-    },
-    currentTimeUp() {
-      this.$emit('currentTimeUp')
     },
     ...mapActions({ updatePage: 'pages/getHTML' }),
     ...mapMutations({ changeCity: 'weather/CHANGE_CURRENT_CITY' })

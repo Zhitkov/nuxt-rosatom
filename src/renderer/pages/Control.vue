@@ -13,8 +13,6 @@
       @switchVolume="SWITCH_VOLUME()"
       @scrollUp="SCROLL_UP()"
       @scrollDown="SCROLL_DOWN()"
-      @currentTimeDown="CURRENT_TIME_DOWN()"
-      @currentTimeUp="CURRENT_TIME_UP()"
       @updatePage="checker(newPage)"
       :cities="cities"
 
@@ -22,7 +20,8 @@
       :pageModules="pageModules"
       :scrollValue="scrollValue"
     ></ControlModalSwitch>
-    <ControlNavbar :logo="require(`~/assets/icons/rosatom.svg`)"></ControlNavbar>
+    <!-- <ControlNavbar :logo="require(`~/assets/icons/rosatom.svg`)"></ControlNavbar> -->
+    <ControlNavbar ></ControlNavbar>
     <div class="control-items">
       <div
         class="control-item"
@@ -89,6 +88,11 @@ body {
   margin: 0;
 }
 .control-items {
+  background-image: url('~/assets/control/bottom.png');
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: 0px; 
+
   display: grid;
   grid-template-columns: repeat(3, 33.3%);
   grid-template-rows: 20% 40% 40%;
@@ -105,7 +109,7 @@ body {
 }
 
 .inside-item:first-child > .logo {
-  background-color: black;
+  /* background-color: black; */
 }
 
 .control-item {

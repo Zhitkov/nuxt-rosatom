@@ -31,4 +31,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.inside-item {
+  color: #48779c
+}
 </style>

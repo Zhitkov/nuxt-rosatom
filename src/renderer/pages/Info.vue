@@ -1,23 +1,26 @@
 <template>
-  <div>
-    <InfoVideo
-      :playerOptions="playerOptions"
-      v-show="infoStatus === 'video'"
-    ></InfoVideo>
-    <InfoWeather
-      v-show="infoStatus === 'weather'"
-      :cities="cities"
-      :currentCity="currentCity"
-      :weatherApi="weatherApi"
-    ></InfoWeather>
-    <InfoPages
-      v-show="(infoStatus === 'news') || (infoStatus ===  'pages')"
-      style="max-width: 100vw"
-      :pageType="pageType"
-      :pageModules="pageModules"
-      :infoStatus="infoStatus"
-      :scrollValue="scrollValue"
-    ></InfoPages>
+  <div class="info">
+    <InfoTimer></InfoTimer>
+    <div>
+      <InfoVideo
+        :playerOptions="playerOptions"
+        v-show="infoStatus === 'video'"
+      ></InfoVideo>
+      <InfoWeather
+        v-show="infoStatus === 'weather'"
+        :cities="cities"
+        :currentCity="currentCity"
+        :weatherApi="weatherApi"
+      ></InfoWeather>
+      <InfoPages
+        v-show="(infoStatus === 'news') || (infoStatus ===  'pages')"
+        style="max-width: 100vw"
+        :pageType="pageType"
+        :pageModules="pageModules"
+        :infoStatus="infoStatus"
+        :scrollValue="scrollValue"
+      ></InfoPages>
+    </div>
   </div>
 </template>
 
@@ -46,5 +49,13 @@ export default {
 </script>
 
 <style>
-
+body {
+  margin: 0;
+}
+.info{
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+}
 </style>
