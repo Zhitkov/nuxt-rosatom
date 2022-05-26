@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div
-      id="page"
       class="page"
     >
       <div
         v-for="(pageModule, index) in pageModules"
+        @scroll="scroller"
         :key="index"
         v-show="index === pageType"
         class="page-item"
@@ -32,23 +32,10 @@ export default {
   },
   methods: {
     ...mapMutations({ changeScrollValue: 'pages/CHANGE_SCROLL_VALUE' }),
-    scroller() {
-      this.changeScrollValue(this.$refs[this.pageType][0].scrollTop);
+    scroller(e) {
+      this.changeScrollValue(e.target.scrollTop);
     }
   },
-  mounted() {
-    for (const pageType in this.$refs) {
-      this.$refs[pageType][0].addEventListener('scroll', this.scroller);
-    }
-  },
-
-  // watch: {
-  //   'this.$refs[this.pageType][0].scrollTop': function () {
-  //     this.$nextTick(function () {
-  //       console.log(1);
-  //     })
-  //   }
-  // },
   watch: {
     scrollValue: function () {
       this.$nextTick(function () {
@@ -58,7 +45,6 @@ export default {
       })
     }
   }
-
 }
 
 </script>
@@ -70,8 +56,8 @@ export default {
 }
 
 .container {
-  /* max-width: 70vw; */
   width: 100%;
+  min-width: 70vh;
   height: 100vh;
   display: flex;
   justify-content: flex-start;

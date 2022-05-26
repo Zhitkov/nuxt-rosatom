@@ -15,7 +15,7 @@
       >
         <img :src="news.img" />
         <p>{{news.title}}</p>
-        <!-- <p>{{news.content}}</p> -->
+        <!-- НЕ ЗАБУДЬ ЗДЕСЬ ВЫВОДЯТСЯ НЕ ВСЕ НОВОСТИ -->
       </div>
     </div>
     <div

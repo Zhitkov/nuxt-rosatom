@@ -2,11 +2,10 @@
   <nuxt />
 </template>
 
-<script>
+<!-- <script>
 export default {
-  layout: false
 };
-</script>
+</script> -->
 
 <style>
 #__nuxt {

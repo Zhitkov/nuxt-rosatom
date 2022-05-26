@@ -92,24 +92,8 @@ export const getters = {
 }
 
 export const mutations = {
-    // SCROLL_UP(state) {
-    //     if (state.scrollValue <= 0) {
-    //         return state.scrollValue = 0;
-    //     }
-    //     state.scrollValue -= 300;
-    //     console.log(state.scrollValue);
-    // },
-    // SCROLL_DOWN(state) {
-    //     state.scrollValue += 300;
-    //     console.log(state.scrollValue);
-    // },
-    // SCROLL_TO_ZERO(state) {
-    //     console.log(state.scrollValue, 'ZERO');
-    //     state.scrollValue = 0;
-    // },
     CHANGE_SCROLL_VALUE(state, scrollValue) {
         state.scrollValue = scrollValue;
-        // console.log(scrollValue, 'scrollValue mutation');
     },
     CHANGE_PAGE_TYPE(state, type) {
         state.pageType = type;
@@ -174,7 +158,6 @@ export const actions = {
         await this.$axios.$get(link).then((d) => {
             d.response.items.forEach((value) => {
                 if (value.attachments[0].type === 'video') {
-                    // `https://api.vk.com/method/video.get?access_token=${access_token}&videos=${owner_id}_${value.attachments[0].id}&count=1&offset=0&v=5.131`
                     text += `<img src="${value.attachments[0].video.image[4].url}"/>\n`
                 }
                 if (value.attachments[0].type === 'photo') {
@@ -183,7 +166,6 @@ export const actions = {
                 }
                 text += `<p>${value.text}</p>\n`
             })
-            // console.log(text);
         });
         commit('ADD_PAGES_INFO', { text });
     },

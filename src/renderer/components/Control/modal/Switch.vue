@@ -26,8 +26,6 @@
         :pageModules="pageModules"
         :scrollValue="scrollValue"
       ></ControlModalElements>
-      <!-- @currentTimeUp="currentTimeUp"
-        @currentTimeDown="currentTimeDown" -->
     </div>
   </transition>
 </template>
@@ -63,13 +61,7 @@ export default {
     },
     switchVideoPlay() {
       this.$emit('switchVideoPlay')
-    },
-    // currentTimeDown() {
-    //   this.$emit('currentTimeDown')
-    // },
-    // currentTimeUp() {
-    //   this.$emit('currentTimeUp')
-    // }
+    }
   }
 
 }

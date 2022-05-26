@@ -40,15 +40,11 @@ export default {
   },
   methods: {
     ...mapActions(['getMission']),
-    // ...mapMutations({ scrollToZero: 'pages/SCROLL_TO_ZERO' }),
-    // ...mapMutations({ SCROLL_UP: 'pages/SCROLL_UP', SCROLL_DOWN: 'pages/SCROLL_DOWN' })
   }
 
 }
 </script>
 
 <style>
-body {
-  margin: 0;
-}
+
 </style>

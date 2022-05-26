@@ -27,7 +27,6 @@ module.exports = {
     { src: '~/plugins/vidle.js' }
   ],
   axios: {
-    // proxy: true
   },
 
   buildModules: [
@@ -37,9 +36,4 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/proxy'
   ],
-  proxy: {
-    // '/rosenergoatom': { target: 'https://www.rosenergoatom.ru' },
-    // '/rosatom': { target: 'https://rosatom.ru' },
-    // '/vk': { target: '' }
-  }
 }

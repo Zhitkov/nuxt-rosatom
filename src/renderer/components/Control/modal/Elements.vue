@@ -38,16 +38,6 @@
           v-show="(infoStatus === 'news') || (infoStatus ===  'pages')"
           class="pages"
         >
-          <!-- <img
-            @click="forDown()"
-            :src="require('~/assets/icons/arrows/left.svg')"
-            alt=""
-          >
-          <img
-            @click="forUp()"
-            :src="require('~/assets/icons/arrows/right.svg')"
-            alt=""
-          > -->
           <InfoPages
             :pageType="pageType"
             :pageModules="pageModules"
@@ -55,12 +45,6 @@
             :scrollValue="scrollValue"
           ></InfoPages>
         </div>
-        <!-- <div
-          class="pagination"
-          v-show="(infoStatus === 'news') || (infoStatus === 'pages')"
-        >
-          <h1 style="color: white">... из 123</h1>
-        </div> -->
       </div>
       <div v-show="infoStatus === 'weather'">
         <div class="weather-container">

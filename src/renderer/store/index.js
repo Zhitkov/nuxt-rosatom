@@ -1,6 +1,3 @@
-// import { createPersistedState, createSharedMutations } from "vuex-electron"
-
-
 import createCache from 'vuex-cache';
 
 export const plugins = [
@@ -81,9 +78,6 @@ export const getters = {
     videoPlay(state) {
         return state.playerOptions.videoPlay
     },
-    // currentTime(state) {
-    //     return state.playerOptions.currentTime
-    // },
     modal(state) {
         return state.modal
     },
@@ -96,22 +90,6 @@ export const mutations = {
     SWITCH_VOLUME(state) {
         state.playerOptions.mute = !state.playerOptions.mute 
     },
-    // CURRENT_TIME_UP(state) {
-    //     if ((state.playerOptions.currentTime === 0) || (state.playerOptions.currentTime < 0)) {
-    //         state.playerOptions.currentTime = 1
-    //     }
-    //     if (state.playerOptions.currentTime > 0) {
-    //         state.playerOptions.currentTime += 1
-    //     }
-    // },
-    // CURRENT_TIME_DOWN(state) {
-    //     if ((state.playerOptions.currentTime === 0) || (state.playerOptions.currentTime > 0)) {
-    //         state.playerOptions.currentTime = -1
-    //     }
-    //     if (state.playerOptions.currentTime < 0) {
-    //         state.playerOptions.currentTime -= 1
-    //     }
-    // },
     SWITCH_VIDEO_PLAY(state) {
         state.playerOptions.videoPlay = !state.playerOptions.videoPlay 
     },
@@ -127,13 +105,6 @@ export const mutations = {
 }
 
 export const actions = {
-    // switchInfo({ commit, dispatch }, { module, type }) {
-    //     commit('SWITCH_INFO', module)    
-    //     if (type) {
-    //         dispatch('pages/add'+type[0].toUpperCase()+type.slice(1), type)
-    //     }
-    //     commit('SWITCH_MODAL')
-    // }
     switchInfo({ commit, dispatch }, { module, type, src }) {
         commit('SWITCH_INFO', module)    
         if (type) {

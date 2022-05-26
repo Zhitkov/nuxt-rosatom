@@ -58,9 +58,6 @@ export const mutations = {
     CHANGE_CURRENT_CITY(state, city) {
         state.currentCity = city
     },
-    // ADD_CURRENT_WEATHER(state, weather) {
-    //     state.cities[state.currentCity].w = weather;
-    // }
 }
 
 export const actions = {

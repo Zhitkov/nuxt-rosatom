@@ -44,9 +44,6 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 
 export default {
-  // data: () => ({
-    
-  // }),
   computed: {
     ...mapGetters({
       controlItems: 'controlItems',
@@ -60,19 +57,6 @@ export default {
       pageModules: 'pages/pageModules',
       scrollValue: 'pages/scrollValue'
     })
-  },
-  // created() {
-    
-  // },
-  watch: {
-    // modal: function () {
-    //   console.log(1);
-      // if (!this.modal) {
-      //   setTimeout(() => {
-      //     this.switchInfo({module: 'video', src: require('~/assets/videos/headcamp.mp4')})
-      //   }, 30000); 
-      // } else return;
-    // }
   },
   methods: {
     ...mapActions({ switchInfo: 'switchInfo' }),
@@ -120,7 +104,7 @@ body {
   height: 100%;
 }
 
-.item-inside:first-child > .logo {
+.inside-item:first-child > .logo {
   background-color: black;
 }
 

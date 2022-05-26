@@ -1,5 +1,5 @@
 <template>
-  <div class="item-inside">
+  <div class="inside-item">
     <div class="logo">
       <img
         :src="logo"
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-.item-inside {
+.inside-item {
   width: 100%;
   height: 100%;
   display: flex;
