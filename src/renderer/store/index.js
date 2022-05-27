@@ -5,7 +5,7 @@ export const plugins = [
 ]
 
 export const state = () => ({
-    infoStatus: '',
+    infoStatus: 'video',
     pageType: '',
     modal: false,
     playerOptions: {
@@ -13,7 +13,7 @@ export const state = () => ({
         height: '100vh', 
         color: "#409eff",
         title: '', 
-        src: '', 
+        src: require('~/assets/videos/headcamp.mp4'), 
         videoPlay: false,
         mute: false, 
         webFullScreen: false,

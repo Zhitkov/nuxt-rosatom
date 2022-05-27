@@ -1,6 +1,9 @@
 <template>
   <div class="info">
-    <InfoTimer></InfoTimer>
+    <InfoTimer 
+    :infoStatus="infoStatus" 
+    v-show="(playerOptions.src !== require('~/assets/videos/greetings.mp4')) || (infoStatus!=='video')"
+    ></InfoTimer>
     <div>
       <InfoVideo
         :playerOptions="playerOptions"

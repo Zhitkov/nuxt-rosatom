@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!--  -->
-    <v-idle style="display: none" @idle="onidle" :loop="false" :duration="300" :events="['mousemove', 'keypress', 'click', 'touchmove', 'touchstart', 'touchmove', 'scroll']"/>
+    <!-- style="display: none" -->
+    <v-idle @idle="onidle" :loop="false" :duration="300" :events="['mousemove', 'keypress', 'click', 'touchmove', 'touchstart', 'touchmove', 'scroll']"/>
     <ControlModalSwitch
       v-show="modal"
       @closeModal="SWITCH_MODAL()"
@@ -43,6 +43,9 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 
 export default {
+  // created() {
+  //   this.onidle
+  // },
   computed: {
     ...mapGetters({
       controlItems: 'controlItems',
@@ -74,9 +77,6 @@ export default {
         this.SWITCH_MODAL()
       }
     },
-    checker(newPage) {
-      console.log({ newPage }, 'control');
-    }
 
   }
 }

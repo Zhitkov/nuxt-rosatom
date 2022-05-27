@@ -23,7 +23,7 @@ export default {
       width: '100vw',
       height: '100vh',
       color: "#409eff",
-      src: "",
+      src: require('~/assets/videos/headcamp.mp4'),
       mute: true,
       webFullScreen: false,
       speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"],
