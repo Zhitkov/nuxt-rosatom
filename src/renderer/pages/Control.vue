@@ -8,23 +8,25 @@
       :duration="300"
       :events="['mousemove', 'keypress', 'click', 'touchmove', 'touchstart', 'touchmove', 'scroll']"
     />
-    <ControlModalSwitch
-      v-show="modal"
-      @closeModal="SWITCH_MODAL()"
-      :infoStatus="infoStatus"
-      :volume="volume"
-      :videoPlay="videoPlay"
-      :currentPageNews="currentPageNews"
-      @switchVideoPlay="SWITCH_VIDEO_PLAY()"
-      @switchVolume="SWITCH_VOLUME()"
-      @scrollUp="SCROLL_UP()"
-      @scrollDown="SCROLL_DOWN()"
-      @updatePage="checker(newPage)"
-      :cities="cities"
-      :pageType="pageType"
-      :pageModules="pageModules"
-      :scrollValue="scrollValue"
-    ></ControlModalSwitch>
+    <Transition name="modal">
+      <ControlModalSwitch
+        v-show="modal"
+        @closeModal="SWITCH_MODAL()"
+        :infoStatus="infoStatus"
+        :volume="volume"
+        :videoPlay="videoPlay"
+        :currentPageNews="currentPageNews"
+        @switchVideoPlay="SWITCH_VIDEO_PLAY()"
+        @switchVolume="SWITCH_VOLUME()"
+        @scrollUp="SCROLL_UP()"
+        @scrollDown="SCROLL_DOWN()"
+        @updatePage="checker(newPage)"
+        :cities="cities"
+        :pageType="pageType"
+        :pageModules="pageModules"
+        :scrollValue="scrollValue"
+      ></ControlModalSwitch>
+    </Transition>
     <!-- <ControlNavbar :logo="require(`~/assets/icons/rosatom.svg`)"></ControlNavbar> -->
     <ControlNavbar></ControlNavbar>
     <div class="control-container">
@@ -104,8 +106,25 @@ body {
   background-size: auto;
   background-position-y: 70px;
 }
+.modal-enter-active,
+.modal-leave-active,
+.modal-leave-from-class,
+.modal-enter-from-class,
+.modal-enter-active-class,
+.modal-enter-to-class,
+.modal-leave-from-class,
+.modal-leave-active-class,
+.modal-leave-to-class {
+transition: opacity 0.5s ease;
+}
+.modal-enter,
+.modal-leave-to,
+.modal-enter-from,
+.modal-leave-to,
+.modal-leave-from-class {
+opacity: 0;
+}
 .control-items {
-
   display: grid;
   grid-template-columns: repeat(3, 33.3%);
   grid-template-rows: 13% 36.5% 30%;

@@ -7,6 +7,7 @@
       class="showLess"
       v-if="showLess"
     >
+    <transition-group name="news">
       <div
         v-for="news in currentPageNews.data.slice(0, 10)"
         :key="news.postfix+'1'"
@@ -17,11 +18,13 @@
         <p>{{news.title}}</p>
         <!-- НЕ ЗАБУДЬ ЗДЕСЬ ВЫВОДЯТСЯ НЕ ВСЕ НОВОСТИ -->
       </div>
+      </transition-group>
     </div>
     <div
       class="showLess"
       v-else
     >
+    <transition-group name="news">
       <div
         v-for="news in currentPageNews.data.slice(0, 35)"
         :key="news.postfix"
@@ -31,6 +34,7 @@
         <img :src="news.img" />
         <p>{{news.title}}</p>
       </div>
+      </transition-group>
     </div>
     <button
       v-show="showLess"
@@ -58,6 +62,24 @@ export default {
 </script>
 
 <style>
+.news-enter-active,
+.news-leave-active,
+.news-leave-from-class,
+.news-enter-from-class,
+.news-enter-active-class,
+.news-enter-to-class,
+.news-leave-from-class,
+.news-leave-active-class,
+.news-leave-to-class {
+transition: opacity 0.5s ease;
+}
+.news-enter,
+.news-leave-to,
+.news-enter-from,
+.news-leave-to,
+.news-leave-from-class {
+opacity: 0;
+}
 .news-list {
   background-color: white;
   overflow:scroll;
