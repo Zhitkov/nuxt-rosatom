@@ -52,7 +52,7 @@ nav.navbar > .navbar-title {
 nav.navbar > .navbar-title > h2 {
   font-weight: 500;
   color: white;
-  font-size: 15pt;
+  font-size: 22pt;
 }
 
 </style>

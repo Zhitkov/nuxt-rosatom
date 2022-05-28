@@ -1,7 +1,13 @@
 <template>
   <div>
     <!-- style="display: none" -->
-    <v-idle @idle="onidle" :loop="false" :duration="300" :events="['mousemove', 'keypress', 'click', 'touchmove', 'touchstart', 'touchmove', 'scroll']"/>
+    <v-idle
+      style="display: none"
+      @idle="onidle"
+      :loop="false"
+      :duration="300"
+      :events="['mousemove', 'keypress', 'click', 'touchmove', 'touchstart', 'touchmove', 'scroll']"
+    />
     <ControlModalSwitch
       v-show="modal"
       @closeModal="SWITCH_MODAL()"
@@ -15,24 +21,25 @@
       @scrollDown="SCROLL_DOWN()"
       @updatePage="checker(newPage)"
       :cities="cities"
-
       :pageType="pageType"
       :pageModules="pageModules"
       :scrollValue="scrollValue"
     ></ControlModalSwitch>
     <!-- <ControlNavbar :logo="require(`~/assets/icons/rosatom.svg`)"></ControlNavbar> -->
-    <ControlNavbar ></ControlNavbar>
-    <div class="control-items">
-      <div
-        class="control-item"
-        v-for="item in controlItems"
-        :key="item.title"
-        @click="switchInfo(item.info)"
-      >
-        <ControlMenuItem
-          :logo="item.logo"
-          :title="item.title"
-        ></ControlMenuItem>
+    <ControlNavbar></ControlNavbar>
+    <div class="control-container">
+      <div class="control-items">
+        <div
+          class="control-item"
+          v-for="item in controlItems"
+          :key="item.title"
+          @click="switchInfo(item.info)"
+        >
+          <ControlMenuItem
+            :logo="item.logo"
+            :title="item.title"
+          ></ControlMenuItem>
+        </div>
       </div>
     </div>
   </div>
@@ -73,7 +80,7 @@ export default {
     }),
     onidle() {
       this.switchInfo({ module: 'video', src: require('~/assets/videos/headcamp.mp4') })
-      if(!this.modal) {
+      if (!this.modal) {
         this.SWITCH_MODAL()
       }
     },
@@ -87,15 +94,21 @@ export default {
 body {
   margin: 0;
 }
-.control-items {
-  background-image: url('~/assets/control/bottom.png');
+.control-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 73vh;
+  background-image: url("~/assets/control/bottom.png");
   background-repeat: no-repeat;
   background-size: auto;
-  background-position: 0px; 
+  background-position-y: 70px;
+}
+.control-items {
 
   display: grid;
   grid-template-columns: repeat(3, 33.3%);
-  grid-template-rows: 20% 40% 40%;
+  grid-template-rows: 13% 36.5% 30%;
   grid-gap: 20px;
   padding: 3vh 20vw;
   text-align: center;
@@ -117,7 +130,7 @@ body {
 
   background-color: #e9e9e9;
   border: 2px solid #1d4d79;
-  border-radius: 5px;
+  border-radius: 10px;
   height: 150px;
 }
 </style>

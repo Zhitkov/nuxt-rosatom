@@ -39,7 +39,7 @@ export const state = () => ({
             pages: {
                 link: 'https://rosatom.ru',
                 postfix: '/career/',
-                selector: '.article__body',
+                selector: '.wrapper',
                 data: ''
             }
         },
@@ -153,7 +153,6 @@ export const actions = {
         commit('ADD_PAGES_INFO', { text });
     },
     async getVk({ commit }, link) {
-        console.log('vkvkvkvkvkvkvk', link);
         let text = '';
         await this.$axios.$get(link).then((d) => {
             d.response.items.forEach((value) => {

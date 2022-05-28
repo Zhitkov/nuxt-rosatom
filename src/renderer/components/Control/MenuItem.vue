@@ -24,6 +24,7 @@ export default {
 </script>
 
 <style scoped>
+
 .inside-item {
   width: 100%;
   height: 100%;

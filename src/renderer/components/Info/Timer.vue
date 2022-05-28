@@ -75,6 +75,7 @@ export default {
 }
 .timer-container.false {
   width: 15vw;
+  background-color: white;
 }
 .timer-container {
   position: absolute;
