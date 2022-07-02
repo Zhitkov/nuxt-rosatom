@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <div
-      class="page"
-    >
+    <div class="page">
       <div
         v-for="(pageModule, index) in pageModules"
         @scroll="scroller"
@@ -11,7 +9,10 @@
         class="page-item"
         :ref="index"
       >
-        <div v-html="pageModule.pages.data">
+        <div
+          class="page-item-container"
+          v-html="pageModule.pages.data"
+        >
 
         </div>
       </div>
@@ -50,6 +51,10 @@ export default {
 </script>
 
 <style>
+#__layout > div > div.switch-modal > div.container > div > div:nth-child(1) > div.pages > div > div > div:nth-child(2) > div > div.container > ol {
+  display: none;
+}
+
 .page > .page-item > div > img {
   width: 100%;
   height: auto;
@@ -74,9 +79,25 @@ export default {
 
 .page > .page-item {
   width: 100%;
+  /* padding: 0 15%; */
+  text-align: left;
   height: 100%;
   background-color: white;
   overflow: scroll;
+}
+.page > .page-item > .page-item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.page > .page-item > .page-item-container > .cell {
+
+  width: 100%
+}
+
+.page-item > div > p {
+  padding: 1% 0;
 }
 
 .list {
@@ -90,5 +111,21 @@ export default {
   margin: 0;
   padding: 0;
   overflow: scroll;
+}
+
+.page-header__media {
+    position: absolute;
+    /* top: 0; */
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #fff;
+}
+
+.page-header {
+    /* z-index: 810; */
 }
 </style>

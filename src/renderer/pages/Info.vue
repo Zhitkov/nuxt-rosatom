@@ -2,10 +2,10 @@
   <div class="info">
     <InfoTimer
       :infoStatus="infoStatus"
-      v-show="(playerOptions.src !== require('~/assets/videos/greetings.mp4')) || (infoStatus!=='video')"
+      v-if="(playerOptions.src !== require('~/assets/videos/greetings.mp4')) || (infoStatus!=='video')"
     ></InfoTimer>
     <div>
-      <Transition name="info">
+      <Transition :duration="{ enter: 0, leave: 0 }">
         <InfoVideo
           :playerOptions="playerOptions"
           v-show="infoStatus === 'video'"

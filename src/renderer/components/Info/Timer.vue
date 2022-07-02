@@ -1,14 +1,19 @@
 <template>
-  <div :class="'timer-container ' + (infoStatus === 'video')">
-    <div v-show="infoStatus === 'video'" class="logo">
-      <img src="~assets/icons/info/timer/logo.png">
+  <Transition name="timer">
+    <div :class="'timer-container ' + (infoStatus === 'video')">
+      <div
+        v-show="infoStatus === 'video'"
+        class="logo"
+      >
+        <img src="~assets/icons/info/timer/logo.png">
+      </div>
+      <div class="timer">
+        <div class="day">{{todayDay}}</div>
+        <div class="time">{{currentTime}}</div>
+        <div class="date">{{todayDate}}</div>
+      </div>
     </div>
-    <div class="timer">
-      <div class="day">{{todayDay}}</div>
-      <div class="time">{{currentTime}}</div>
-      <div class="date">{{todayDate}}</div>
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <script>
@@ -70,6 +75,25 @@ export default {
 </script>
 
 <style>
+.timer-enter-active,
+.timer-leave-active,
+.timer-leave-from-class,
+.timer-enter-from-class,
+.timer-enter-active-class,
+.timer-enter-to-class,
+.timer-leave-from-class,
+.timer-leave-active-class,
+.timer-leave-to-class {
+  transition: opacity 0.5s ease;
+}
+.timer-enter,
+.timer-leave-to,
+.timer-enter-from,
+.timer-leave-to,
+.timer-leave-from-class {
+  opacity: 0;
+}
+
 .timer-container.true {
   width: 25vw;
 }

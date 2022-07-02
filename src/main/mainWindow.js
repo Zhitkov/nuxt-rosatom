@@ -33,6 +33,7 @@ const winHandler =
 
 winHandler.forEach((win, i, arr, links = ['/control', '/info']) => {
   win.onCreated(_browserWindow => {
+    _browserWindow.setMenuBarVisibility(false) 
     win.loadPage(links[i])
   })
 })

@@ -175,3 +175,12 @@ export const actions = {
         commit('ADD_NEWS_INFO', { news: rss.items });
     },
 }
+
+// function getChildNodes(div) {
+//     if (div.childNodes) {
+//         div.childNodes.forEach((d) => { getChildNodes(d) })
+//     } else {
+//         console.log(div.innerHTML, 'getChildNodes');
+//         return div.innerHTML
+//     }
+// }
