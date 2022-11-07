@@ -103,8 +103,9 @@ body {
   height: 73vh;
   background-image: url("~/assets/control/bottom.png");
   background-repeat: no-repeat;
-  background-size: auto;
-  background-position-y: 70px;
+      background-size: 100% 70%;
+    background-position: bottom;
+  /* background-position-y: 70px; */
 }
 .modal-enter-active,
 .modal-leave-active,
@@ -132,6 +133,9 @@ opacity: 0;
   padding: 3vh 20vw;
   text-align: center;
 
+      height: 85%;
+    align-items: center;
+
   justify-content: center;
 }
 .control-item:first-child {
@@ -142,6 +146,9 @@ opacity: 0;
 
 .inside-item:first-child > .logo {
   /* background-color: black; */
+}
+.inside-item > .title {
+  font-size: 20pt;
 }
 
 .control-item {

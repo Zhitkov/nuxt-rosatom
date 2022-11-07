@@ -12,12 +12,12 @@
         ></InfoVideo>
       </Transition>
       <Transition name="info">
-        <InfoWeather
-          v-show="infoStatus === 'weather'"
-          :cities="cities"
-          :currentCity="currentCity"
-          :weatherApi="weatherApi"
-        ></InfoWeather>
+        <div v-show="infoStatus === 'weather'" class="for-weather">
+          <InfoWeather
+            
+            :cities="cities"
+          ></InfoWeather>
+        </div>
       </Transition>
       <Transition name="info">
         <InfoPages
@@ -27,6 +27,7 @@
           :pageModules="pageModules"
           :infoStatus="infoStatus"
           :scrollValue="scrollValue"
+          :infoWidth="true"
         ></InfoPages>
       </Transition>
     </div>
@@ -46,8 +47,6 @@ export default {
       pageType: 'pages/pageType',
       scrollValue: 'pages/scrollValue',
       cities: 'weather/cities',
-      currentCity: 'weather/currentCity',
-      weatherApi: 'weather/weatherApi'
     }),
   },
   methods: {

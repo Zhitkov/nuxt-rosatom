@@ -76,6 +76,7 @@ export default {
   max-height: 100vh;
   display: flex;
   justify-content: flex-end;
+  overflow: hidden;
 }
 .switch-modal > div:first-child {
   text-align: right;

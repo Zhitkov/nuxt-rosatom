@@ -22,6 +22,7 @@ export const state = () => ({
                 link: 'https://rosatom.ru',
                 postfix: '/about/mission/',
                 selector: '.article__body',
+                height: '550vh',
                 data: ''
             }
         },
@@ -40,6 +41,7 @@ export const state = () => ({
                 link: 'https://rosatom.ru',
                 postfix: '/career/',
                 selector: '.wrapper',
+                height: '350vh',
                 data: ''
             }
         },
@@ -104,12 +106,15 @@ export const mutations = {
     ADD_NEWS_INFO(state, { news }) {
         console.log(news, 'mutation news');
         news.forEach((e) => {
-            state.pageModules[state.pageType].news.data.push({
-                title: e.title,
-                img: e.enclosure.url,
-                link: e.link.split('.ru')[0] + '.ru',
-                postfix: e.link.split('.ru')[1]
-            })
+            if (e.enclosure) {
+                state.pageModules[state.pageType].news.data.push({
+                    title: e.title,
+                    img: e.enclosure.url,
+                    link: e.link.split('.ru')[0] + '.ru',
+                    postfix: e.link.split('.ru')[1],
+                    // height: '250vh'
+                })
+            } 
         })
     },
 }
@@ -130,14 +135,20 @@ export const actions = {
     },
     async getHTML({ commit }, { link, postfix, selector }) {
         let text = '';
-        var styleReg = / *(\.cell {)/;
+        var styleReg = / *(\.cell )|(\.banner-text )/;
         console.log('+++' + link + postfix + '+++');
         await this.$axios.$get(link + postfix).then((html) => {
             let dom = new JSDOM(html);
             let imgs = dom.window.document.images
+            let links = dom.window.document.links
             for (let i in imgs) {
                 if (imgs[i].src) {
                     imgs.item(i).src = link + imgs.item(i).src
+                }
+            }
+            for (let i in links) {
+                if (links[i].href) {
+                    links[i].classList.add('disabled');
                 }
             }
             dom.window.document.querySelector(selector).childNodes.forEach((e) => {
@@ -146,10 +157,15 @@ export const actions = {
                         text += `<style>${e.innerHTML}</style>\n`
                         return
                     }
+                    // if (e.innerHTML.tagName === 'A') {
+                        // e.innerHTML.href = '';
+                    // }
                     text += `<p>${e.innerHTML}</p>\n`;
                 }
             })
         })
+        text = link + postfix;
+        // text = '<iframe name="google-disable-x-frame-options" style="width:100%;height:100%;" frameborder="0" src="' + link + postfix + '" />'
         commit('ADD_PAGES_INFO', { text });
     },
     async getVk({ commit }, link) {

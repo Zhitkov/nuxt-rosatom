@@ -18,7 +18,8 @@ export default ({ store }) => {
                 'pages/ADD_PAGES_INFO',
                 'pages/CHANGE_PAGE_TYPE',
                 'pages/ADD_NEWS_INFO',
-                'weather/CHANGE_CURRENT_CITY'
+                // 'weather/CHANGE_CURRENT_CITY'
+                'weather/ADD_WEATHER_IMG'
             ]
         })(store)
     })
